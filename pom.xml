@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.yexuejc.base</groupId>
+    <artifactId>yexuejc-base</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <repos.yexuejc.ivt.url>http://47.100.13.178:7081/nexus/content/groups/public</repos.yexuejc.ivt.url>
+        <repos.yexuejc.prod.url>http://47.100.13.178:7081/nexus/content/groups/public</repos.yexuejc.prod.url>
+        <repos.yexuejc.dist.url>http://47.100.13.178:7081/nexus/content/repositories</repos.yexuejc.dist.url>
+
+        <repos.aliyun.url>http://maven.aliyun.com/nexus/content/groups/public</repos.aliyun.url>
+        <repos.jitpack.url>https://jitpack.io</repos.jitpack.url>
+        <jjwt.version>0.7.0</jjwt.version>
+    </properties>
+
+    <dependencies>
+        <!-- JJWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <pluginManagement>
+            <plugins>
+                <!-- 打包源码 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- 使用spring boot的maven插件进行打包 -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!-- 是否打出可执行的jar包(仅支持Linux格式) -->
+                        <executable>true</executable>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <repositories>
+        <repository>
+            <id>yexuejc-prod-nexus-public</id>
+            <name>yexuejc-prod-nexus-public</name>
+            <url>${repos.yexuejc.prod.url}</url>
+        </repository>
+        <repository>
+            <id>yexuejc-ivt-nexus-public</id>
+            <name>yexuejc-ivt-nexus-public</name>
+            <url>${repos.yexuejc.ivt.url}</url>
+        </repository>
+        <repository>
+            <id>aliyun-nexus-public</id>
+            <name>aliyun-nexus-public</name>
+            <url>${repos.aliyun.url}</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>${repos.jitpack.url}</url>
+        </repository>
+    </repositories>
+    <!-- 中间件jar包发布目标 -->
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>nexus-release</name>
+            <url>${repos.yexuejc.dist.url}/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>nexus-snapshots</name>
+            <url>${repos.yexuejc.dist.url}/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
