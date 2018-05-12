@@ -21,6 +21,10 @@ public class Resps<T> implements Serializable {
      */
     private String code;
     /**
+     * md5码
+     */
+    private String sign;
+    /**
      * 内容
      */
     private T data;
@@ -131,6 +135,14 @@ public class Resps<T> implements Serializable {
 
     public void setMsg(String[] msg) {
         this.msg = msg;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
     }
 
     @Override

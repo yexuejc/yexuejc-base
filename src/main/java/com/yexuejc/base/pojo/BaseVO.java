@@ -5,6 +5,7 @@ import com.yexuejc.base.util.JsonUtil;
 import java.io.Serializable;
 
 /**
+ * 基类VO
  * @PackageName: com.yexuejc.util.base.pojo
  * @Description:
  * @author: maxf
