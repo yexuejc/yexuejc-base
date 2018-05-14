@@ -12,7 +12,7 @@ public class JwtUtil {
     /** token类型 */
     private static String JWT_HEADER_TYP = "JWT";
     /** token发行商 */
-    private static String JWT_CLAIMS_ISS = "uselaw.com";
+    private static String JWT_CLAIMS_ISS = "yexuejc.com";
 
     /**
      * 加密内容生成token
