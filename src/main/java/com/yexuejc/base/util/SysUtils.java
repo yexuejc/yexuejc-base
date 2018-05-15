@@ -1,5 +1,7 @@
 package com.yexuejc.base.util;
 
+import java.net.URL;
+
 /**
  * 系统工具类
  *
@@ -22,4 +24,15 @@ public class SysUtils {
     public static String getCachePath() {
         return System.getProperty(PROJECT_ROOT_PATH);
     }
+
+    /**
+     * 从根路径获取文件URL
+     *
+     * @param clazz
+     * @return
+     */
+    public static URL getRootPath(Class clazz, String filePath) {
+        return clazz.getClass().getResource(StrUtil.setStr(filePath, "/"));
+    }
+
 }
