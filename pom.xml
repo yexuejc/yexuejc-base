@@ -6,7 +6,7 @@
 
     <groupId>com.yexuejc.base</groupId>
     <artifactId>yexuejc-base</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 
     <name>${project.artifactId}</name>
 
@@ -21,6 +21,7 @@
         <maven.compiler.verbose>true</maven.compiler.verbose>
         <java.version>1.8</java.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
+        <commons-codec.version>1.10</commons-codec.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,14 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>${validation-api.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!--base64使用到的依赖-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>
