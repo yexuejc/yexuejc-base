@@ -1,11 +1,19 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.1.2
+**time：** 2018-5-16 15:03:28<br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1.修改依赖
+
+#
 #### version ：1.1.1
 **time：** 2018-5-12 22:25:05<br/>
 **branch：** master    <br/>
 **update：**     <br/>
 >1.添加RSA
+#
 
 ##### version ：1.1.0
 **time：** 2018-5-12 22:25:05<br/>

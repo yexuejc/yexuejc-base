@@ -2,6 +2,7 @@ package com.yexuejc.base.encrypt;
 
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
