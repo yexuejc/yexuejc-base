@@ -57,12 +57,35 @@ public final class StrUtil {
     }
 
     /**
-     * 生成UUID
+     * 生成32位UUID
      *
      * @return
      */
     public static String genUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+    /**
+     * 生成指定位数UUID
+     *
+     * @param length
+     * @return
+     */
+    public static String genUUID(int length) {
+        if (length <= 32) {
+            return genUUID().substring(0, length);
+        } else if (length < 1) {
+            return "";
+        } else {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < length / 32; i++) {
+                sb.append(genUUID());
+            }
+            if (length % 32 > 0) {
+                sb.append(genUUID().substring(0, length % 32));
+            }
+            return sb.toString();
+        }
     }
 
     /**

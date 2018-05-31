@@ -18,6 +18,9 @@ public class ApiVO implements Serializable {
     public ApiVO() {
     }
 
+    public ApiVO(STATUS status) {
+        this.status = status;
+    }
     public ApiVO(STATUS status, String code, String msg) {
         this.status = status;
         this.code = code;

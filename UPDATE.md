@@ -1,6 +1,14 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.1.3
+**time：** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1.修改正则RegexUtils.java
+>1.修改正则StrUtil.java->扩展genUUID()
+
+#
 #### version ：1.1.2
 **time：** 2018-5-16 15:03:28<br/>
 **branch：** master    <br/>
