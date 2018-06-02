@@ -136,7 +136,7 @@ public class DateTimeUtil {
      * @param zonedDateTime
      * @return
      */
-    public static Date zonedDateTime2Date(ZonedDateTime zonedDateTime) {
+    public static Date parseDate(ZonedDateTime zonedDateTime) {
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zdt = zonedDateTime.withZoneSameInstant(zoneId);
         Date date = Date.from(zdt.toInstant());
@@ -149,10 +149,97 @@ public class DateTimeUtil {
      * @param date
      * @return
      */
-    public static ZonedDateTime date2ZonedDateTime(Date date) {
+    public static ZonedDateTime parseZonedDateTime(Date date) {
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         return instant.atZone(zoneId).withZoneSameInstant(zoneId);
+    }
+
+    /**
+     * Date 转 LocalDateTime
+     *
+     * @param date
+     * @return
+     */
+    public static LocalDateTime parseLocalDateTime(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        return instant.atZone(zoneId).toLocalDateTime();
+    }
+
+    /**
+     * LocalDateTime 转 Date
+     *
+     * @param localDateTime
+     * @return
+     */
+    public static Date parseLocalDateTime(LocalDateTime localDateTime) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * LocalDate 转 Date
+     *
+     * @param localDate
+     * @return
+     */
+    public static Date parseData(LocalDate localDate) {
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        return Date.from(instant);
+    }
+
+    /**
+     * Date 转 LocalDate
+     *
+     * @param date
+     * @return
+     */
+    public static LocalDate parseLocalDate(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        return localDateTime.toLocalDate();
+    }
+
+    /**
+     * Date 转 LocalTime
+     *
+     * @param date
+     * @return
+     */
+    public static LocalTime parseLocalTime(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        return localDateTime.toLocalTime();
+    }
+
+    /**
+     * Date 转 LocalTime
+     *
+     * @param localTime
+     * @return 当前日期的指定时间
+     */
+    public static Date parseDate(LocalTime localTime) {
+        LocalDate localDate = LocalDate.now();
+        return parseDate(localDate, localTime);
+    }
+
+    /**
+     * Date 转 LocalTime
+     *
+     * @param localDate
+     * @param localTime
+     * @return 指定日期的指定时间
+     */
+    public static Date parseDate(LocalDate localDate, LocalTime localTime) {
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        return Date.from(instant);
     }
 
     /**
