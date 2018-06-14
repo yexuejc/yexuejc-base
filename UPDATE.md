@@ -1,8 +1,15 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.1.4
+**time：2018-6-14 22:27:59** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1.统一编码：UTF-8
+
+#
 #### version ：1.1.3
-**time：** <br/>
+**time：2018年6月2日12:16:58** <br/>
 **branch：** master    <br/>
 **update：**     <br/>
 >1.修改正则RegexUtils.java

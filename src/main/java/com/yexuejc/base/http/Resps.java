@@ -81,6 +81,10 @@ public class Resps<T> implements Serializable {
         return this;
     }
 
+    public static Resps success(String[] msg) {
+        return new Resps(RespsConsts.CODE_SUCCESS, msg);
+    }
+
     public static Resps success(String msg) {
         return new Resps(RespsConsts.CODE_SUCCESS, msg);
     }
@@ -93,8 +97,8 @@ public class Resps<T> implements Serializable {
         return new Resps(RespsConsts.CODE_ERROR, msg);
     }
 
-    public static Resps fail(String msg) {
-        return new Resps(RespsConsts.CODE_FAIL, msg);
+    public static Resps error(String[] msg) {
+        return new Resps(RespsConsts.CODE_ERROR, msg);
     }
 
     public static Resps error(String code, String msg) {
@@ -103,6 +107,14 @@ public class Resps<T> implements Serializable {
 
     public static Resps error(String code, String[] msg) {
         return new Resps(code, msg);
+    }
+
+    public static Resps fail(String msg) {
+        return new Resps(RespsConsts.CODE_FAIL, msg);
+    }
+
+    public static Resps fail(String[] msg) {
+        return new Resps(RespsConsts.CODE_FAIL, msg);
     }
 
     public static Resps fail(String code, String msg) {
