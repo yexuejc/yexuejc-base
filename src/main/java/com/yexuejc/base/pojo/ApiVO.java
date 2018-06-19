@@ -21,10 +21,38 @@ public class ApiVO implements Serializable {
     public ApiVO(STATUS status) {
         this.status = status;
     }
+
+    /**
+     * 使用默认返回code
+     *
+     * @param status
+     * @param msg
+     */
+    public ApiVO(STATUS status, String msg) {
+        this.status = status;
+        this.msgs = StrUtil.isNotEmpty(msg) ? new String[]{msg} : null;
+    }
+
+    /**
+     * 使用默认返回code
+     * @param status
+     * @param msg
+     */
+    public ApiVO(STATUS status, String[] msg) {
+        this.status = status;
+        this.msgs = msg;
+    }
+
     public ApiVO(STATUS status, String code, String msg) {
         this.status = status;
         this.code = code;
         this.msgs = StrUtil.isNotEmpty(msg) ? new String[]{msg} : null;
+    }
+
+    public ApiVO(STATUS status, String code, String[] msg) {
+        this.status = status;
+        this.code = code;
+        this.msgs = msg;
     }
 
     public enum STATUS {
