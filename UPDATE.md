@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.1.7
+**time：2018-8-17 11:22:50** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 优化ApiVO
+#
+
 #### version ：1.1.6
 **time：2018-7-7 11:32:56** <br/>
 **branch：** master    <br/>

@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * 基类VO
+ *
  * @PackageName: com.yexuejc.util.base.pojo
  * @Description:
  * @author: maxf
@@ -15,16 +16,16 @@ public class BaseVO implements Serializable {
 
     private static final long serialVersionUID = -1442656950873492155L;
 
-    public static interface Add {
+    public interface Add {
     }
 
-    public static interface Del {
+    public interface Del {
     }
 
-    public static interface Mdfy {
+    public interface Mdfy {
     }
 
-    public static interface Srch {
+    public interface Srch {
     }
 
     @Override
