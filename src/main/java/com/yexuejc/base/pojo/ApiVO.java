@@ -35,6 +35,7 @@ public class ApiVO implements Serializable {
 
     /**
      * 使用默认返回code
+     *
      * @param status
      * @param msg
      */
@@ -53,6 +54,20 @@ public class ApiVO implements Serializable {
         this.status = status;
         this.code = code;
         this.msgs = msg;
+    }
+
+    public ApiVO setStatus(STATUS status, String code, String msg) {
+        this.status = status;
+        this.code = code;
+        this.msgs = StrUtil.isNotEmpty(msg) ? new String[]{msg} : null;
+        return this;
+    }
+
+    public ApiVO setStatus(STATUS status, String code, String[] msg) {
+        this.status = status;
+        this.code = code;
+        this.msgs = msg;
+        return this;
     }
 
     public enum STATUS {
@@ -93,34 +108,22 @@ public class ApiVO implements Serializable {
      */
     private Object object2;
 
-    public <T extends Object> void setObject1(T obj) {
+    public <T extends Object> ApiVO setObject1(T obj) {
         object1 = obj;
+        return this;
     }
 
     public <T extends Object> T getObject1(Class<T> clazz) {
         return (T) object1;
     }
 
-    public <T extends Object> void setObject2(T obj) {
+    public <T extends Object> ApiVO setObject2(T obj) {
         object2 = obj;
+        return this;
     }
 
     public <T extends Object> T getObject2(Class<T> clazz) {
         return (T) object2;
-    }
-
-    public ApiVO setStatus(STATUS status, String code, String msg) {
-        this.status = status;
-        this.code = code;
-        this.msgs = StrUtil.isNotEmpty(msg) ? new String[]{msg} : null;
-        return this;
-    }
-
-    public ApiVO setStatus(STATUS status, String code, String[] msg) {
-        this.status = status;
-        this.code = code;
-        this.msgs = msg;
-        return this;
     }
 
     public boolean isSucc() {
@@ -137,8 +140,9 @@ public class ApiVO implements Serializable {
         return false;
     }
 
-    public void setMsg(String msg) {
+    public ApiVO setMsg(String msg) {
         this.msgs = StrUtil.isNotEmpty(msg) ? new String[]{msg} : null;
+        return this;
     }
 
     public boolean isFail() {
@@ -149,8 +153,9 @@ public class ApiVO implements Serializable {
         return code;
     }
 
-    public void setCode(String code) {
+    public ApiVO setCode(String code) {
         this.code = code;
+        return this;
     }
 
     @Override
@@ -162,12 +167,14 @@ public class ApiVO implements Serializable {
         return status;
     }
 
-    public void setStatus(STATUS status) {
+    public ApiVO setStatus(STATUS status) {
         this.status = status;
+        return this;
     }
 
-    public void setMsgs(String[] msgs) {
+    public ApiVO setMsgs(String[] msgs) {
         this.msgs = msgs;
+        return this;
     }
 
     public String[] getMsgs() {
