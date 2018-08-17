@@ -7,21 +7,22 @@
 
 
 ### 使用
->yexuejc.base.version=1.1.6
+>yexuejc.base.version=1.1.7
 
 pom.xml
 ```
 <dependencies>
     <dependency>
-        <groupId>com.github.yexuejc</groupId>
+        <groupId>com.yexuejc.base</groupId>
         <artifactId>yexuejc-base</artifactId>
         <version>${yexuejc.base.version}</version>
     </dependency>
 </dependencies>
 <repositories>
     <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
+        <id>yexuejc-nexus-public</id>
+        <name>yexuejc-nexus-public</name>
+        <url>https://nexus.yexuejc.club/repository/maven-public/</url>
     </repository>
 </repositories>
 ```
