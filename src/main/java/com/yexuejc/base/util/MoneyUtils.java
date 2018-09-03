@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
- * q钱相关工具类
+ * 钱相关工具类
  *
  * @ClassName: MoneyUtils
  * @Description:

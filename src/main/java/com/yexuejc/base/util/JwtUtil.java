@@ -6,17 +6,71 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * jwt工具类
+ *
+ * @author maxf
+ * @ClassName JwtUtil
+ * @Description
+ * @date 2018/9/3 15:28
+ */
 public class JwtUtil {
-    /** 加密用KEY */
+    /**
+     * 加密用KEY
+     */
     private static String JWT_SIGNATURE_KEY = "h%OG8Y3WgA5AN7&6Ke7I#C1XvneW0N8a";
-    /** token类型 */
+    /**
+     * token类型
+     */
     private static String JWT_HEADER_TYP = "JWT";
-    /** token发行商 */
+    /**
+     * token发行商
+     */
     private static String JWT_CLAIMS_ISS = "yexuejc.com";
 
     /**
+     * 设置配置
+     *
+     * @param key
+     * @param type
+     * @param iss
+     */
+    public static void setConf(String key, String type, String iss) {
+        JWT_SIGNATURE_KEY = key;
+        JWT_HEADER_TYP = type;
+        JWT_CLAIMS_ISS = iss;
+    }
+
+    /**
+     * 加密用KEY
+     *
+     * @param key
+     */
+    public static void setSignatureKey(String key) {
+        JWT_SIGNATURE_KEY = key;
+    }
+
+    /**
+     * token类型
+     *
+     * @param type
+     */
+    public static void setHeaderType(String type) {
+        JWT_HEADER_TYP = type;
+    }
+
+    /**
+     * token发行商
+     *
+     * @param iss
+     */
+    public static void setClaimsIss(String iss) {
+        JWT_CLAIMS_ISS = iss;
+    }
+
+    /**
      * 加密内容生成token
-     * 
+     *
      * @param subjectObj
      * @return
      */
@@ -48,7 +102,7 @@ public class JwtUtil {
 
     /**
      * 解密token为一个Map
-     * 
+     *
      * @param token
      * @return
      */
@@ -58,7 +112,7 @@ public class JwtUtil {
 
     /**
      * 解密token为一个指定对象
-     * 
+     *
      * @param token
      * @param cls
      * @return

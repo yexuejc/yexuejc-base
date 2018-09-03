@@ -6,7 +6,7 @@
 
     <groupId>com.yexuejc.base</groupId>
     <artifactId>yexuejc-base</artifactId>
-    <version>1.1.7</version>
+    <version>1.1.8</version>
 
     <name>${project.artifactId}</name>
 
@@ -20,6 +20,7 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-io.version>2.6</commons-io.version>
+        <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
     </properties>
 
     <dependencies>
@@ -48,6 +49,12 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
+        <!--支持大量的密码术算法，并提供JCE 1.2.1的实现-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bcprov-jdk15on.version}</version>
+        </dependency>
     </dependencies>
 
 
@@ -59,8 +66,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <!-- 打包源码 -->

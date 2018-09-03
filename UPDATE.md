@@ -1,6 +1,15 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.1.8
+**time：2018-8-17 11:22:50** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 增肌图片处理工具类
+>2. 增肌3des工具类
+>3. 增肌RSA工具类
+>4. 优化其他工具类
+#
 #### version ：1.1.7
 **time：2018-8-17 11:22:50** <br/>
 **branch：** master    <br/>

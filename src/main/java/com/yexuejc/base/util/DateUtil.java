@@ -6,7 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
+/**
+ *  java.util.Date 时间工具类
+ * @ClassName  DateUtil
+ * @Description
+ * @author  maxf
+ * @date  2018/9/3 15:27
+ */
 public class DateUtil {
     private DateUtil() {
     }
@@ -71,7 +77,7 @@ public class DateUtil {
     /**
      * 日期字符串转date
      *
-     * @param date
+     * @param dateStr
      * @return Date
      * @throws ParseException
      */

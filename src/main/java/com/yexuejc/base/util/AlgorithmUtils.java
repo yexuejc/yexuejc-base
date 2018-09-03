@@ -1,6 +1,8 @@
 package com.yexuejc.base.util;
 
 
+import sun.misc.BASE64Decoder;
+
 /**
  * 算法工具类
  *
@@ -107,4 +109,47 @@ public class AlgorithmUtils {
     static class NextCodeException extends Exception {
         private static final long serialVersionUID = 8956943499144648985L;
     }
+
+    /**
+     * 16进制转为2进制
+     *
+     * @param hexString 16进制字符串
+     */
+    public static String x16ConvertTo2(String hexString) {
+        if (hexString == null || hexString.length() % 2 != 0) {
+            return null;
+        }
+        String bString = "", tmp;
+        for (int i = 0; i < hexString.length(); i++) {
+            tmp = "0000" + Integer.toBinaryString(Integer.parseInt(hexString.substring(i, i + 1), 16));
+            bString += tmp.substring(tmp.length() - 4);
+        }
+        return bString;
+    }
+
+    /**
+     * 16进制转为2进制byte[]
+     *
+     * @param hexString 16进制字符串
+     * @return
+     */
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || hexString.equals("")) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+        }
+        return d;
+    }
+
+    private static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
+
 }

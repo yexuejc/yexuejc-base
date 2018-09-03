@@ -9,6 +9,14 @@ import com.fasterxml.jackson.databind.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * json工具类，基于jackson
+ *
+ * @author maxf
+ * @ClassName JsonUtil
+ * @Description
+ * @date 2018/9/3 15:28
+ */
 public class JsonUtil {
     private JsonUtil() {
     }

@@ -107,7 +107,6 @@ public class RSA {
      * @param privateKey
      * @return
      */
-
     public static String privateDecrypt(String data, RSAPrivateKey privateKey) {
         try {
             Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);

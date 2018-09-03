@@ -5,6 +5,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * map相关工具
+ *
+ * @author maxf
+ * @ClassName MapRemoveNullUtil
+ * @Description
+ * @date 2018/9/3 15:32
+ */
 public class MapRemoveNullUtil {
     private MapRemoveNullUtil() {
     }
