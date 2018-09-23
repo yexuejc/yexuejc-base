@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 /**
- *  java.util.Date 时间工具类
- * @ClassName  DateUtil
+ * java.util.Date 时间工具类
+ *
+ * @author maxf
+ * @ClassName DateUtil
  * @Description
- * @author  maxf
- * @date  2018/9/3 15:27
+ * @date 2018/9/3 15:27
  */
 public class DateUtil {
     private DateUtil() {
@@ -87,7 +89,7 @@ public class DateUtil {
     }
 
     /**
-     * 日期字符串转date
+     * date转字符串
      *
      * @param date
      * @return Date
@@ -100,6 +102,34 @@ public class DateUtil {
             return "null";
         }
     }
+
+    /**
+     * 日期字符串转dateTime
+     *
+     * @param dateStr
+     * @return
+     * @throws ParseException
+     */
+    public static Date str2dateTime(String dateStr) throws ParseException {
+        Date date = DATE_TIME_FORMAT.parse(dateStr);
+        return date;
+    }
+
+    /**
+     * dateTime转字符串
+     *
+     * @param date
+     * @return Date
+     * @throws ParseException
+     */
+    public static String dateTime2str(Date date) throws ParseException {
+        if (date != null) {
+            return DATE_TIME_FORMAT.format(date);
+        } else {
+            return "null";
+        }
+    }
+
 
     /**
      * 获取本周的日期

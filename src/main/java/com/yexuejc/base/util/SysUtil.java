@@ -10,10 +10,10 @@ import java.net.URL;
  * @author: maxf
  * @date: 2017/12/28 16:12
  */
-public class SysUtils {
+public class SysUtil {
     private static final String PROJECT_ROOT_PATH = "java.io.tmpdir";
 
-    private SysUtils() {
+    private SysUtil() {
     }
 
     /**

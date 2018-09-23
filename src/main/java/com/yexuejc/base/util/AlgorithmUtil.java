@@ -1,8 +1,6 @@
 package com.yexuejc.base.util;
 
 
-import sun.misc.BASE64Decoder;
-
 /**
  * 算法工具类
  *
@@ -11,13 +9,13 @@ import sun.misc.BASE64Decoder;
  * @author: maxf
  * @date: 2017年11月23日 下午3:17:58
  */
-public class AlgorithmUtils {
+public class AlgorithmUtil {
     private static final int LENGTH_1 = 1;
     private static final int LENGTH_2 = 2;
     private static final int LENGTH_3 = 3;
     private static final int LENGTH_36 = 36;
 
-    private AlgorithmUtils() {
+    private AlgorithmUtil() {
     }
 
     private static final String X36 = "0123456789abcdefghijklmnopqrstuvwxyz";

@@ -8,8 +8,9 @@ package com.yexuejc.base.util;
  * @author: maxf
  * @date: 2017/12/27 16:42
  */
-public class ExcelImportUtils {
-
+public class ExcelImportUtil {
+    private ExcelImportUtil() {
+    }
 
     /**
      * 是否是2003的excel，返回true是2003

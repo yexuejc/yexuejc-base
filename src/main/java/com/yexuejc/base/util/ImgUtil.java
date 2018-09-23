@@ -22,6 +22,8 @@ import java.util.Iterator;
  * @date 2018/9/3 15:25
  */
 public class ImgUtil {
+    private ImgUtil() {
+    }
 
     /**
      * 将一张网络图片转化成Base64字符串

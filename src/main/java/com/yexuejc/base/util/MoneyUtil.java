@@ -11,8 +11,8 @@ import java.text.DecimalFormat;
  * @author: maxf
  * @date: 2017年12月1日 下午5:33:57
  */
-public class MoneyUtils {
-    private MoneyUtils() {
+public class MoneyUtil {
+    private MoneyUtil() {
     }
 
     /**

@@ -3,11 +3,20 @@
 ### 说明
 >1. 支持环境：java8
 >2. 该工具包基于springboot提取，按理说适用于所有java工程
->3. 其中依赖jjwt、validation-api，但不传递依赖
+>3. 其中依赖jjwt、validation-api，排除请使用
+```
+<exclusions>
+    <exclusion>
+        <artifactId>xxx</artifactId>
+        <groupId>xxxx</groupId>
+    </exclusion>
+</exclusions>
+```
+>4. 1.1.9升级JWT为单例类
 
 
 ### 使用
->yexuejc.base.version=1.1.7
+>yexuejc.base.version=1.1.9
 
 pom.xml
 ```

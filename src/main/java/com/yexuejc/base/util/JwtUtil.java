@@ -8,65 +8,59 @@ import java.util.Map;
 
 /**
  * jwt工具类
+ * <p>
+ * 升级2.0
+ * <br/>
+ * 由静态类分装成单例类，可配置参数config()
+ * </p>
  *
  * @author maxf
+ * @version 2.0
  * @ClassName JwtUtil
  * @Description
  * @date 2018/9/3 15:28
  */
 public class JwtUtil {
-    /**
-     * 加密用KEY
-     */
-    private static String JWT_SIGNATURE_KEY = "h%OG8Y3WgA5AN7&6Ke7I#C1XvneW0N8a";
-    /**
-     * token类型
-     */
-    private static String JWT_HEADER_TYP = "JWT";
-    /**
-     * token发行商
-     */
-    private static String JWT_CLAIMS_ISS = "yexuejc.com";
+
+    private JwtUtil() {
+    }
+
+    public static JwtUtil instace() {
+        return Instace.jwtUtil;
+    }
 
     /**
-     * 设置配置
+     * 参数配置：设置一次即可，多次设置会覆盖之前的
      *
-     * @param key
-     * @param type
-     * @param iss
+     * @param key  加密key 默认：h%OG8Y3WgA5AN7&6Ke7I#C1XvneW0N8a
+     * @param type 加密类型：默认JWT
+     * @param iss  token发行商: 默认yexuejc.com
+     * @return
      */
-    public static void setConf(String key, String type, String iss) {
-        JWT_SIGNATURE_KEY = key;
-        JWT_HEADER_TYP = type;
-        JWT_CLAIMS_ISS = iss;
+    public static JwtUtil config(String key, String type, String iss) {
+        JwtUtil jwtUtil = instace();
+        jwtUtil.JWT_SIGNATURE_KEY = key;
+        jwtUtil.JWT_HEADER_TYP = type;
+        jwtUtil.JWT_CLAIMS_ISS = iss;
+        return jwtUtil;
+    }
+
+    public static class Instace {
+        private static JwtUtil jwtUtil = new JwtUtil();
     }
 
     /**
      * 加密用KEY
-     *
-     * @param key
      */
-    public static void setSignatureKey(String key) {
-        JWT_SIGNATURE_KEY = key;
-    }
-
+    private String JWT_SIGNATURE_KEY = "h%OG8Y3WgA5AN7&6Ke7I#C1XvneW0N8a";
     /**
      * token类型
-     *
-     * @param type
      */
-    public static void setHeaderType(String type) {
-        JWT_HEADER_TYP = type;
-    }
-
+    private String JWT_HEADER_TYP = "JWT";
     /**
      * token发行商
-     *
-     * @param iss
      */
-    public static void setClaimsIss(String iss) {
-        JWT_CLAIMS_ISS = iss;
-    }
+    private String JWT_CLAIMS_ISS = "yexuejc.com";
 
     /**
      * 加密内容生成token
@@ -74,7 +68,7 @@ public class JwtUtil {
      * @param subjectObj
      * @return
      */
-    public static String compact(Object subjectObj) {
+    public String compact(Object subjectObj) {
         String subject = null;
         if (subjectObj instanceof String) {
             subject = (String) subjectObj;
@@ -106,7 +100,7 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    public static Map<?, ?> parse(String token) {
+    public Map<?, ?> parse(String token) {
         return parse(token, Map.class);
     }
 
@@ -117,7 +111,7 @@ public class JwtUtil {
      * @param cls
      * @return
      */
-    public static <T> T parse(String token, Class<T> cls) {
+    public <T> T parse(String token, Class<T> cls) {
         String subject = null;
         try {
             subject = Jwts.parser().setSigningKey(JWT_SIGNATURE_KEY).parseClaimsJws(token).getBody().getSubject();

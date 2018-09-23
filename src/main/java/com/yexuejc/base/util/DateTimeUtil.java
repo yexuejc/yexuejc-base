@@ -13,6 +13,9 @@ import java.util.Date;
  * @date: 2018/3/27 10:44
  */
 public class DateTimeUtil {
+    private DateTimeUtil() {
+    }
+
     /**
      * 获取本年第一天
      *
@@ -106,7 +109,8 @@ public class DateTimeUtil {
      * @return
      */
     public static LocalDate getWeek4First(LocalDate date) {
-        TemporalAdjuster FIRST_OF_WEEK = TemporalAdjusters.ofDateAdjuster(localDate -> localDate.minusDays(localDate.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue()));
+        TemporalAdjuster FIRST_OF_WEEK =
+                TemporalAdjusters.ofDateAdjuster(localDate -> localDate.minusDays(localDate.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue()));
         return date.with(FIRST_OF_WEEK);
     }
 
@@ -126,7 +130,8 @@ public class DateTimeUtil {
      * @return
      */
     public static LocalDate getWeek4Last(LocalDate date) {
-        TemporalAdjuster LAST_OF_WEEK = TemporalAdjusters.ofDateAdjuster(localDate -> localDate.plusDays(DayOfWeek.SUNDAY.getValue() - localDate.getDayOfWeek().getValue()));
+        TemporalAdjuster LAST_OF_WEEK =
+                TemporalAdjusters.ofDateAdjuster(localDate -> localDate.plusDays(DayOfWeek.SUNDAY.getValue() - localDate.getDayOfWeek().getValue()));
         return date.with(LAST_OF_WEEK);
     }
 

@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
  * @expl
  * @time 2017年11月9日 上午11:01:24
  */
-public class RegexUtils {
-    private RegexUtils() {
+public class RegexUtil {
+    private RegexUtil() {
     }
 
     /**

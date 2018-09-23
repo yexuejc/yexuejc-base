@@ -20,6 +20,8 @@ import java.security.Key;
  * @date 2018/9/3 17:09
  */
 public class ThreeDES {
+    private ThreeDES() {
+    }
 
     private static final String IV = "1234567-";
     private final static String encoding = "utf-8";
