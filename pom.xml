@@ -6,7 +6,7 @@
 
     <groupId>com.yexuejc.base</groupId>
     <artifactId>yexuejc-base</artifactId>
-    <version>1.1.9</version>
+    <version>1.2.0</version>
 
     <name>${project.artifactId}</name>
 
@@ -21,6 +21,7 @@
         <commons-codec.version>1.10</commons-codec.version>
         <commons-io.version>2.6</commons-io.version>
         <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
+        <guava.version>20.0</guava.version>
     </properties>
 
     <dependencies>
@@ -54,6 +55,12 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>${bcprov-jdk15on.version}</version>
+        </dependency>
+        <!--com.yexuejc.base.util.SysUtil.threadRun 异步处理代码-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 

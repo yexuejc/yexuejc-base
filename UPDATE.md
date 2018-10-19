@@ -1,6 +1,18 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.0
+**time：2018-10-19 11:38:20** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 增加异步线程处理工具
+```$java
+SysUtil.threadRun(() -> {
+    //异步执行代码块
+}
+```
+#
+
 #### version ：1.1.9
 **time：2018-9-23 11:57:36** <br/>
 **branch：** master    <br/>
