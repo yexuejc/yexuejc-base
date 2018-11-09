@@ -1,6 +1,12 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.1
+**time：2018-11-9 15:05:06** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 优化resps
+#
 #### version ：1.2.0
 **time：2018-10-19 11:38:20** <br/>
 **branch：** master    <br/>
