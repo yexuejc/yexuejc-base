@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.2
+**time：2018-11-20 20:20:12** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 优化RSA 加解密
+>1. 增加RSA 签名
+#
 #### version ：1.2.1
 **time：2018-11-9 15:05:06** <br/>
 **branch：** master    <br/>
