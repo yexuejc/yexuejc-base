@@ -13,10 +13,11 @@
 </exclusions>
 ```
 >4. 1.1.9升级JWT为单例类
+>5. 1.2.3修复RSA加密(签名)Base64Url 问题，如需使用RSA请使用1.2.3+
 
 
 ### 使用
->yexuejc.base.version=1.2.0
+>yexuejc.base.version=1.2.3
 
 pom.xml
 ```
