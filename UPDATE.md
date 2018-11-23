@@ -1,6 +1,18 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.3
+**time：2018-11-23 16:45:42** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 修复RSA加密（签名）时选择的Base64（encodeBase64URLSafeString、encodeBase64String）区分
+#
+#### version ：1.2.1
+**time：2018-11-9 15:05:06** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 优化resps
+#
 #### version ：1.2.2
 **time：2018-11-20 20:20:12** <br/>
 **branch：** master    <br/>
