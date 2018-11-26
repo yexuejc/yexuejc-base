@@ -16,6 +16,7 @@ import java.security.interfaces.RSAPublicKey;
 /**
  * RSA加解密 证书模式
  * 依赖 {@link RSA}
+ *
  * @ClassName: RSA2
  * @Description:
  * @author: maxf
@@ -55,7 +56,15 @@ public class RSA2 {
      */
     public static RSAPrivateKey getPrivateKey(String filepath, String alias, String password) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
         KeyStore ks = KeyStore.getInstance("JKS");
-        ks.load(new FileInputStream(filepath), password.toCharArray());
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(filepath);
+            ks.load(fileInputStream, password.toCharArray());
+        } finally {
+            if (fileInputStream != null) {
+                fileInputStream.close();
+            }
+        }
         return (RSAPrivateKey) ks.getKey(alias, password.toCharArray());
     }
 

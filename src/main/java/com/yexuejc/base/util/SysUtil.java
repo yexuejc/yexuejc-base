@@ -71,9 +71,12 @@ public class SysUtil {
     }
 
     /**
-     * 异步执行代码块
+     * 异步执行接口
      */
     public interface ThreadRun {
+        /**
+         * 执行代码块
+         */
         void execute();
     }
 }

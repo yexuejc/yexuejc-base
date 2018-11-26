@@ -23,8 +23,8 @@ public class ThreeDES {
     private ThreeDES() {
     }
 
-    private static final String IV = "1234567-";
-    private final static String encoding = "utf-8";
+    public static String IV = "1234567-";
+    public static String ENCODING = "utf-8";
 
     /**
      * DESCBC加密
@@ -46,7 +46,7 @@ public class ThreeDES {
         Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
         IvParameterSpec ips = new IvParameterSpec(IV.getBytes());
         cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
-        byte[] encryptData = cipher.doFinal(src.getBytes(encoding));
+        byte[] encryptData = cipher.doFinal(src.getBytes(ENCODING));
         return Base64.encodeBase64URLSafeString(encryptData);
     }
 
@@ -72,7 +72,7 @@ public class ThreeDES {
 
         byte[] decryptData = cipher.doFinal(Base64.decodeBase64(src));
 
-        return new String(decryptData, encoding);
+        return new String(decryptData, ENCODING);
     }
 
     /**

@@ -77,7 +77,7 @@ public class AlgorithmUtil {
      * @throw
      */
     public static int x36ConvertTo10(String pStr) {
-        if (pStr == "") {
+        if (StrUtil.isEmpty(pStr)) {
             return 0;
         }
         // 目标十进制数初始化为0
@@ -117,12 +117,12 @@ public class AlgorithmUtil {
         if (hexString == null || hexString.length() % 2 != 0) {
             return null;
         }
-        String bString = "", tmp;
+        StringBuffer buf = new StringBuffer();
         for (int i = 0; i < hexString.length(); i++) {
-            tmp = "0000" + Integer.toBinaryString(Integer.parseInt(hexString.substring(i, i + 1), 16));
-            bString += tmp.substring(tmp.length() - 4);
+            String tmp = "0000" + Integer.toBinaryString(Integer.parseInt(hexString.substring(i, i + 1), 16));
+            buf.append(tmp.substring(tmp.length() - 4));
         }
-        return bString;
+        return buf.toString();
     }
 
     /**
@@ -132,7 +132,7 @@ public class AlgorithmUtil {
      * @return
      */
     public static byte[] hexStringToBytes(String hexString) {
-        if (hexString == null || hexString.equals("")) {
+        if (hexString == null || "".equals(hexString)) {
             return null;
         }
         hexString = hexString.toUpperCase();

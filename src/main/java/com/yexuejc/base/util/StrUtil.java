@@ -126,7 +126,7 @@ public final class StrUtil {
             return null;
         }
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>(16);
         String[] kv = null;
         for (String entry : entrys) {
             if (isEmpty(entry)) {
@@ -151,7 +151,7 @@ public final class StrUtil {
      * @param buf 初始字节数组
      * @return 转换后字符串
      */
-    public static String toHex(byte buf[]) {
+    public static String toHex(byte[] buf) {
         StringBuffer strbuf = new StringBuffer(buf.length * 2);
         int i;
         for (i = 0; i < buf.length; i++) {
@@ -181,7 +181,7 @@ public final class StrUtil {
             return null;
         }
         md.update(str.getBytes());
-        byte tmp[] = md.digest();
+        byte[] tmp = md.digest();
         return toHex(tmp);
     }
 
@@ -215,7 +215,7 @@ public final class StrUtil {
             return null;
         }
         messageDigest.update(str.getBytes());
-        byte tmp[] = messageDigest.digest();
+        byte[] tmp = messageDigest.digest();
         return toHex(tmp);
     }
 
@@ -241,8 +241,9 @@ public final class StrUtil {
      * @param str
      * @return
      */
+    private static Pattern pattern = Pattern.compile("[0-9]*");
+
     public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
         if (!isNum.matches()) {
             return false;
@@ -262,16 +263,17 @@ public final class StrUtil {
         }
 
         StringBuilder coded = new StringBuilder();
+        Random random = new Random();
         for (int i = 0; i < 13; i++) {
-            coded.append(HEX_CHAR[(int) (Math.random() * 15L) + 1]);
+            coded.append(HEX_CHAR[random.nextInt(16)]);
         }
         coded.append(id.substring(0, 11));
         for (int i = 0; i < 7; i++) {
-            coded.append(HEX_CHAR[(int) (Math.random() * 15L) + 1]);
+            coded.append(HEX_CHAR[random.nextInt(16)]);
         }
         coded.append(id.substring(11));
         for (int i = 0; i < 12; i++) {
-            coded.append(HEX_CHAR[(int) (Math.random() * 15L) + 1]);
+            coded.append(HEX_CHAR[random.nextInt(16)]);
         }
 
         return coded.toString();
@@ -338,7 +340,7 @@ public final class StrUtil {
      * @return
      */
     public static Map<String, Object> mapSort(Map<String, ?> sortedParams) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         List<String> keys = new ArrayList<>(sortedParams.keySet());
         Collections.sort(keys);
         int index = 0;

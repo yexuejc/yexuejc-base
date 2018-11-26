@@ -41,7 +41,8 @@ public class ExcelImportUtil {
      * @return
      */
     public static boolean validateExcel(String filePath) {
-        if (filePath == null || !(isExcel2003(filePath) || isExcel2007(filePath))) {
+        boolean b = filePath == null || !(isExcel2003(filePath) || isExcel2007(filePath));
+        if (b) {
             return false;
         }
         return true;

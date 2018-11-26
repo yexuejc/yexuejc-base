@@ -310,8 +310,16 @@ public class ImgUtil {
      * @throws IOException
      */
     public static byte[] byteImage(String imgUrl) throws IOException {
-        FileInputStream fis = new FileInputStream(imgUrl);
-        byte[] rs = new byte[fis.available()];
+        byte[] rs;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(imgUrl);
+            rs = new byte[fis.available()];
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
+        }
         return rs;
     }
 

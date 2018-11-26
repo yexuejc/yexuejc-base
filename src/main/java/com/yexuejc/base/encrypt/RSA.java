@@ -2,12 +2,12 @@ package com.yexuejc.base.encrypt;
 
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -18,7 +18,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
-//import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  * RSA加解密 配置模式
@@ -117,7 +116,7 @@ public class RSA {
             publicKeyStr = Base64.encodeBase64String(publicKey.getEncoded());
             privateKeyStr = Base64.encodeBase64String(privateKey.getEncoded());
         }
-        Map<String, String> keyPairMap = new HashMap<String, String>();
+        Map<String, String> keyPairMap = new HashMap<String, String>(2);
         keyPairMap.put("publicKey", publicKeyStr);
         keyPairMap.put("privateKey", privateKeyStr);
 
@@ -302,7 +301,10 @@ public class RSA {
             throw new RuntimeException("加解密阀值为[" + maxBlock + "]的数据时发生异常", e);
         }
         byte[] resultDatas = out.toByteArray();
-        IOUtils.closeQuietly(out);
+        try {
+            out.close();
+        } catch (IOException e) {
+        }
         return resultDatas;
     }
 

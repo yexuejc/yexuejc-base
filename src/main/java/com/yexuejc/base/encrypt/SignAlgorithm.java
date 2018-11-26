@@ -2,8 +2,12 @@ package com.yexuejc.base.encrypt;
 
 /**
  * 签名算法类型
- * 参考Hutool
- * see: https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Signature
+ *
+ * @author maxf
+ * @ClassName SignAlgorithm
+ * @Description 签名算法类型 参考Hutool https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Signature
+ * @date 2018/11/26 10:25
+ * @see 1.0
  */
 public enum SignAlgorithm {
     // The RSA signature algorithm
