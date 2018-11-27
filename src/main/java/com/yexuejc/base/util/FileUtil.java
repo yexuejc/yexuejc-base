@@ -11,6 +11,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Logger;
 import java.util.zip.CRC32;
 
 /**
@@ -22,6 +23,8 @@ import java.util.zip.CRC32;
  * @time 2017年11月3日 下午3:12:49
  */
 public class FileUtil {
+    static Logger logger = Logger.getLogger(FileUtil.class.getName());
+
     private FileUtil() {
     }
 
@@ -37,15 +40,16 @@ public class FileUtil {
      * @param fileName
      * @return
      */
-    public static String getFileType(String fileName) throws FileNotFoundException {
+    public static String getFileType(String fileName) {
         try {
             if (fileName.lastIndexOf(TYPE_TAR_GZ) > 0) {
                 return TAR_GZ;
             }
             return fileName.substring(fileName.lastIndexOf(".") + 1);
         } catch (Exception e) {
-            throw new FileNotFoundException("文件类型未能解析");
+            logger.severe("file doesn't exist or is not a file");
         }
+        return null;
     }
 
     /**
@@ -56,12 +60,13 @@ public class FileUtil {
     public static void judeFileExists(File file) {
 
         if (file.exists()) {
-            System.out.println("file exists");
+            logger.severe("file exists");
         } else {
-            System.out.println("file not exists, create it ...");
+            logger.info("file not exists, create it ...");
             try {
                 file.createNewFile();
             } catch (IOException e) {
+                logger.severe("file create fail");
                 e.printStackTrace();
             }
         }
@@ -84,12 +89,12 @@ public class FileUtil {
     public static boolean judeDirExists(File file) {
         if (file.exists()) {
             if (file.isDirectory()) {
-                System.out.println("dir exists");
+                logger.severe("dir exists");
             } else {
-                System.out.println("the same name file exists, can not create dir");
+                logger.severe("the same name file exists, can not create dir");
             }
         } else {
-            System.out.println("dir not exists, create it ...");
+            logger.info("dir not exists, create it ...");
             return file.mkdirs();
         }
         return false;
@@ -121,10 +126,13 @@ public class FileUtil {
             }
             return sha1;
         } catch (NoSuchAlgorithmException e) {
+            logger.severe("system algorithm error.");
             e.printStackTrace();
         } catch (FileNotFoundException e) {
+            logger.severe("file doesn't exist or is not a file");
             e.printStackTrace();
         } catch (IOException e) {
+            logger.severe("The operation file is an IO exception.");
             e.printStackTrace();
         } finally {
             try {
@@ -132,6 +140,7 @@ public class FileUtil {
                     in.close();
                 }
             } catch (IOException e) {
+                logger.severe("close FileInputStream IO exception.");
             }
         }
         return null;
@@ -154,10 +163,13 @@ public class FileUtil {
             messagedigest.update(byteBuffer);
             return StrUtil.toHex(messagedigest.digest());
         } catch (NoSuchAlgorithmException e) {
+            logger.severe("system algorithm error.");
             e.printStackTrace();
         } catch (FileNotFoundException e) {
+            logger.severe("file doesn't exist or is not a file");
             e.printStackTrace();
         } catch (IOException e) {
+            logger.severe("The operation file is an IO exception.");
             e.printStackTrace();
         }
         return null;
@@ -189,16 +201,16 @@ public class FileUtil {
             }
             return md5;
         } catch (IOException e) {
-            System.out.println(e);
+            logger.severe("The operation file is an IO exception.");
         } catch (NoSuchAlgorithmException e) {
-            System.out.println(e);
+            logger.severe("system algorithm error.");
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
             } catch (IOException e) {
-                System.out.println(e);
+                logger.severe("close FileInputStream IO exception.");
             }
         }
         return null;
@@ -222,10 +234,13 @@ public class FileUtil {
             messagedigest.update(byteBuffer);
             return StrUtil.toHex(messagedigest.digest());
         } catch (NoSuchAlgorithmException e) {
+            logger.severe("system algorithm error.");
             e.printStackTrace();
         } catch (FileNotFoundException e) {
+            logger.severe("file doesn't exist or is not a file");
             e.printStackTrace();
         } catch (IOException e) {
+            logger.severe("The operation file is an IO exception.");
             e.printStackTrace();
         }
         return null;
@@ -249,9 +264,11 @@ public class FileUtil {
             }
             return crc32.getValue() + "";
         } catch (FileNotFoundException e) {
+            logger.severe("file doesn't exist or is not a file");
             e.printStackTrace();
             return null;
         } catch (IOException e) {
+            logger.severe("The operation file is an IO exception.");
             e.printStackTrace();
             return null;
         } finally {
@@ -260,6 +277,7 @@ public class FileUtil {
                     fileInputStream.close();
                 }
             } catch (IOException e) {
+                logger.severe("close FileInputStream IO exception.");
                 e.printStackTrace();
             }
         }
@@ -281,6 +299,7 @@ public class FileUtil {
             fileInputStream.read(data);
             fileInputStream.close();
         } catch (IOException e) {
+            logger.severe("The operation file is an IO exception.");
             e.printStackTrace();
         }
         // 对字节数组Base64编码
@@ -288,8 +307,66 @@ public class FileUtil {
         return encoder.encode(data);
     }
 
+    /**
+     * 获取文件大小 ：直接返回大小
+     *
+     * @param f
+     * @return f.length()
+     */
+    public static long size(File f) {
+        if (f.exists() && f.isFile()) {
+            return f.length();
+        } else {
+            logger.info("file doesn't exist or is not a file");
+        }
+        return 0;
+    }
 
-   /* public static void main(String[] args) {
+    /**
+     * 获取文件大小 : 用流的方式获取
+     *
+     * @param f
+     * @return
+     */
+    public static long size4Stream(File f) {
+        FileChannel fc = null;
+        try {
+            if (f.exists() && f.isFile()) {
+                FileInputStream fis = new FileInputStream(f);
+                fc = fis.getChannel();
+                return fc.size();
+            } else {
+                logger.info("file doesn't exist or is not a file");
+            }
+        } catch (FileNotFoundException e) {
+            logger.severe("file doesn't exist or is not a file");
+        } catch (IOException e) {
+            logger.severe("The operation file is an IO exception.");
+        } finally {
+            if (null != fc) {
+                try {
+                    fc.close();
+                } catch (IOException e) {
+                    logger.severe("close FileInputStream IO exception.");
+                }
+            }
+        }
+        return 0;
+    }
+
+    /*public static void main(String[] args) {
+        long size = FileUtil.size(new File("E:\\OS\\deepin-15.6-amd64\\DeepinCloudPrintServerInstaller_1.0.0.1.exe"));
+        System.out.println(size);
+        System.out.println(1024 * 1024 * 5);
+        if (size > 1024 * 1024 * 5) {
+            System.out.println("文件最大5M");
+            return;
+        }
+
+        long s1 = fileSize(new File("E:\\OS\\cn_windows_10_consumer_editions_version_1803_updated_march_2018_x64_dvd_12063766.iso"));
+        System.out.println(s1);
+        long s2 = fileSize4Stream(new File("E:\\OS\\cn_windows_10_consumer_editions_version_1803_updated_march_2018_x64_dvd_12063766.iso"));
+        System.out.println(s2);
 
         String s1 = base64(new File("C:\\Users\\Administrator\\Desktop\\a.html"));
         System.out.println(s1);
