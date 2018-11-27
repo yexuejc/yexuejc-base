@@ -1,6 +1,14 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.4
+**time：2018-11-27 14:46:04** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 工具类的优化
+>2.规范代码
+
+#
 #### version ：1.2.3
 **time：2018-11-23 16:45:42** <br/>
 **branch：** master    <br/>

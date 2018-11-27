@@ -17,7 +17,7 @@
 
 
 ### 使用
->yexuejc.base.version=1.2.3
+>yexuejc.base.version=1.2.4
 
 pom.xml
 ```
