@@ -5,9 +5,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.type.MapType;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * json工具类，基于jackson
@@ -95,12 +97,13 @@ public class JsonUtil {
         return pojo;
     }
 
+
     /**
      * Json字符串转换为Java对象
      *
-     * @param json
-     * @param parametrized
-     * @param parameterClasses
+     * @param json             字符串
+     * @param parametrized     容器类
+     * @param parameterClasses 实际类
      * @return
      */
     public static <T> T json2Obj(String json, Class<T> parametrized, Class<?>... parameterClasses) {
@@ -117,11 +120,55 @@ public class JsonUtil {
     }
 
     /**
+     * Json字符串转换为Java-Map对象
+     *
+     * @param json       字符串
+     * @param mapClass   Map 继承类
+     * @param keyClass   Key 类
+     * @param valueClass Value 类
+     * @param <T>
+     * @return
+     */
+    public static <T> T json2Obj(String json, Class<? extends Map> mapClass, Class<?> keyClass, Class<?> valueClass) {
+        T pojo = null;
+        MapType mapType = objectMapper.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
+        try {
+            pojo = objectMapper.readValue(json, mapType);
+        } catch (JsonParseException e) {
+        } catch (JsonMappingException e) {
+        } catch (IOException e) {
+        }
+        return pojo;
+    }
+
+    /**
+     * Json字符串转换为Java-Map对象
+     *
+     * @param json      字符串
+     * @param mapClass  Map 继承类
+     * @param keyType   Key 类
+     * @param valueType Value 类
+     * @param <T>
+     * @return
+     */
+    public static <T> T json2Obj(String json, Class<? extends Map> mapClass, JavaType keyType, JavaType valueType) {
+        T pojo = null;
+        MapType mapType = objectMapper.getTypeFactory().constructMapType(mapClass, keyType, valueType);
+        try {
+            pojo = objectMapper.readValue(json, mapType);
+        } catch (JsonParseException e) {
+        } catch (JsonMappingException e) {
+        } catch (IOException e) {
+        }
+        return pojo;
+    }
+
+    /**
      * Json字符串转换为Java对象
      *
-     * @param json
-     * @param parametrized
-     * @param parameterClasses
+     * @param json             字符串
+     * @param parametrized     容器类
+     * @param parameterClasses 实际类
      * @return
      */
     public static <T> T json2Obj(InputStream json, Class<T> parametrized, Class<?>... parameterClasses) {

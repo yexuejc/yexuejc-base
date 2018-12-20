@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.5
+**time：2018-12-20 13:13:23** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 丰富[JsonUtil](src/main/java/com/yexuejc/base/util/JsonUtil.java),支持直接对Map泛型转换
+
+#
 #### version ：1.2.4
 **time：2018-11-27 14:46:04** <br/>
 **branch：** master    <br/>
