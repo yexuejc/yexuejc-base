@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.6
+**time：2018-12-21 14:58:49** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. RSA 验签增加初始化方法
+
+#
 #### version ：1.2.5
 **time：2018-12-20 13:13:23** <br/>
 **branch：** master    <br/>
