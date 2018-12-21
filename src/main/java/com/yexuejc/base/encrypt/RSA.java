@@ -376,7 +376,8 @@ public class RSA {
      * @return
      * @throws UnsupportedEncodingException
      */
-    public static boolean verify(String plaintext, String signStr, RSAPublicKey publicKey) throws UnsupportedEncodingException {
+    public static boolean verify(String plaintext, String signStr, RSAPublicKey publicKey) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        signature = Signature.getInstance(signAlgorithm.getValue());
         boolean isValid = false;
         try {
             signature.initVerify(publicKey);
