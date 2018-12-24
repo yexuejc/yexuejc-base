@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.7
+**time：2018-12-24 15:31:01** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. FileUtil增加base64转File `base64ToFile()`
+
+#
 #### version ：1.2.6
 **time：2018-12-21 14:58:49** <br/>
 **branch：** master    <br/>

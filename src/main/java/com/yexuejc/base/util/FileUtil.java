@@ -2,10 +2,7 @@ package com.yexuejc.base.util;
 
 import sun.misc.BASE64Encoder;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -305,6 +302,37 @@ public class FileUtil {
         // 对字节数组Base64编码
         BASE64Encoder encoder = new BASE64Encoder();
         return encoder.encode(data);
+    }
+
+    /**
+     * base64转文件
+     * <p>
+     * <i>
+     * 文件转base64请使用 {@link FileUtil#base64(File)}
+     * </i>
+     *
+     * @param decode   baseByte
+     * @param fileName 文件名称（包含路径）
+     * @return 返回保存地址
+     */
+    public static String base64ToFile(byte[] decode, String fileName) {
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(fileName);
+            out.write(decode);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileName;
     }
 
     /**

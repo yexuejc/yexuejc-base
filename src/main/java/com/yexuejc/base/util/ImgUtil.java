@@ -323,33 +323,6 @@ public class ImgUtil {
         return rs;
     }
 
-    /**
-     * base64转文件
-     *
-     * @param decode   baseByte
-     * @param fileName 文件名称（包含路径）
-     * @return 返回保存地址
-     */
-    public static String base64ToFile(byte[] decode, String fileName) {
-
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(fileName);
-            out.write(decode);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return fileName;
-    }
-
     public static class ImageInfo {
         /**
          * 图片大小
