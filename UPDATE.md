@@ -1,6 +1,20 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.8
+**time：2018-12-28 20:10:14** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 新增[ObjUtil](src/main/java/com/yexuejc/base/util/ObjUtil.java) 对类（对象）进行处理，提供深度克隆
+
+#
+#### version ：1.2.6
+**time：2018-12-21 14:58:49** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. RSA 验签增加初始化方法
+
+#
 #### version ：1.2.7
 **time：2018-12-24 15:31:01** <br/>
 **branch：** master    <br/>
