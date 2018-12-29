@@ -5,6 +5,7 @@ import com.yexuejc.base.util.StrUtil;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -45,6 +46,21 @@ public class RSA2 {
     }
 
     /**
+     * 得到公钥
+     *
+     * @param pubKeyIn 密钥文件流
+     * @return
+     * @throws CertificateException
+     */
+    public static RSAPublicKey getPublicKey(InputStream pubKeyIn) throws CertificateException {
+        //通过证书,获取公钥
+        CertificateFactory cf = null;
+        cf = CertificateFactory.getInstance("X.509");
+        Certificate c = cf.generateCertificate(pubKeyIn);
+        return (RSAPublicKey) c.getPublicKey();
+    }
+
+    /**
      * 读取JKS格式的key（私钥）keystore格式
      *
      * @param filepath 私钥路径
@@ -62,6 +78,23 @@ public class RSA2 {
     }
 
     /**
+     * 读取JKS格式的key（私钥）keystore格式
+     *
+     * @param priKeyIn 私钥文件流
+     * @param alias    证书别名
+     * @param password 证书密码
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws KeyStoreException
+     * @throws IOException
+     * @throws CertificateException
+     * @throws UnrecoverableKeyException
+     */
+    public static RSAPrivateKey getPrivateKey(InputStream priKeyIn, String alias, String password) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        return getPrivateKey(priKeyIn, alias, password, "JKS");
+    }
+
+    /**
      * 读取PKCS12格式的key（私钥）pfx格式
      *
      * @param filepath 私钥路径
@@ -76,6 +109,23 @@ public class RSA2 {
      */
     public static RSAPrivateKey getPrivateKeyFromPKCS12(String filepath, String alias, String password) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
         return getPrivateKey(filepath, alias, password, "PKCS12");
+    }
+
+    /**
+     * 读取PKCS12格式的key（私钥）pfx格式
+     *
+     * @param priKeyIn 私钥文件流
+     * @param alias    证书别名 可空
+     * @param password 证书密码
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws KeyStoreException
+     * @throws IOException
+     * @throws CertificateException
+     * @throws UnrecoverableKeyException
+     */
+    public static RSAPrivateKey getPrivateKeyFromPKCS12(InputStream priKeyIn, String alias, String password) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        return getPrivateKey(priKeyIn, alias, password, "PKCS12");
     }
 
     /**
@@ -109,6 +159,34 @@ public class RSA2 {
         } finally {
             if (fileInputStream != null) {
                 fileInputStream.close();
+            }
+        }
+        return (RSAPrivateKey) ks.getKey(alias, password.toCharArray());
+    }
+
+    /**
+     * 读取key（私钥）
+     *
+     * @param priKeyIn 私钥文件流
+     * @param alias    证书别名 可空
+     * @param password 证书密码
+     * @param type     证书格式
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws KeyStoreException
+     * @throws IOException
+     * @throws CertificateException
+     * @throws UnrecoverableKeyException
+     */
+    public static RSAPrivateKey getPrivateKey(InputStream priKeyIn, String alias, String password, String type) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        KeyStore ks = KeyStore.getInstance(type);
+        ks.load(priKeyIn, password.toCharArray());
+        if (StrUtil.isEmpty(alias)) {
+            Enumeration<?> aliases = ks.aliases();
+            if (aliases != null) {
+                if (aliases.hasMoreElements()) {
+                    alias = (String) aliases.nextElement();
+                }
             }
         }
         return (RSAPrivateKey) ks.getKey(alias, password.toCharArray());

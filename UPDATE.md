@@ -1,6 +1,20 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.2.9
+**time：2018-12-29 14:51:33** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 获取RSA密钥增加以输入流的形式获取密钥
+
+#
+#### version ：1.2.6
+**time：2018-12-21 14:58:49** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. RSA 验签增加初始化方法
+
+#
 #### version ：1.2.8
 **time：2018-12-28 20:10:14** <br/>
 **branch：** master    <br/>
