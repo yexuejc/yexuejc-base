@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * json工具类，基于jackson
@@ -20,6 +21,8 @@ import java.util.Map;
  * @date 2018/9/3 15:28
  */
 public class JsonUtil {
+    private static Logger log = Logger.getLogger(JsonUtil.class.getName());
+
     private JsonUtil() {
     }
 
@@ -70,8 +73,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, cls);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
 
         return pojo;
@@ -90,8 +96,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, cls);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
 
         return pojo;
@@ -113,8 +122,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, javaType);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
         return pojo;
     }
@@ -135,8 +147,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, mapType);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
         return pojo;
     }
@@ -157,8 +172,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, mapType);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
         return pojo;
     }
@@ -178,8 +196,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, javaType);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
         return pojo;
     }
@@ -195,6 +216,7 @@ public class JsonUtil {
         try {
             json = objectMapper.writeValueAsString(pojo);
         } catch (JsonProcessingException e) {
+            log.warning("json to Object JsonProcessingException.\n" + e.getMessage());
         }
         return json;
     }
