@@ -1,6 +1,15 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.3.0
+**time：2018-12-30 16:47:50** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 移交发布到maven中央仓库
+>2. 移交后变更groupId 为`top.yexuejc`
+>3. 源码发布由`成都极致思维网络科技有限公司`维护，github开源地址不变，gitee从组织[ICC(InCloudCode)](https://gitee.com/incloudcode)转移到[成都极致思维网络科技有限公司/yexuejc-base](https://gitee.com/jzsw-it/yexuejc-base)
+
+#
 #### version ：1.2.9
 **time：2018-12-29 14:51:33** <br/>
 **branch：** master    <br/>
