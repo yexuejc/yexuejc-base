@@ -1,6 +1,12 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.3.1
+**time：2019-1-2 14:06:47** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. objUtil 增加类字段（驼峰）转换成下划线
+#
 #### version ：1.3.0
 **time：2018-12-30 16:47:50** <br/>
 **branch：** master    <br/>
