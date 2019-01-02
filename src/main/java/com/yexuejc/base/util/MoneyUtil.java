@@ -71,4 +71,23 @@ public class MoneyUtil {
         String str = df.format(bigDecimal);
         return Integer.parseInt(str);
     }
+
+    /**
+     * 元转分
+     *
+     * @param num
+     * @return int
+     * @Title: formatPrice
+     * @Description: 元转分
+     * @throw
+     */
+    public static Long toFen4Long(String num) {
+        if (num == null) {
+            return 0L;
+        }
+        DecimalFormat df = new DecimalFormat("#0");
+        BigDecimal bigDecimal = new BigDecimal(num).multiply(new BigDecimal(100));
+        String str = df.format(bigDecimal);
+        return Long.parseLong(str);
+    }
 }
