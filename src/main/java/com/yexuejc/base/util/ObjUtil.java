@@ -121,6 +121,18 @@ public class ObjUtil {
                         continue;
                     }
                     objMap.put(fName, f.get(obj));
+                } else if (o instanceof List) {
+                    List list = (List) o;
+                    List bodyList = new ArrayList();
+                    list.forEach(it -> {
+                        if (null != it) {
+                            Map<String, Object> underlineMap = getUnderlineMap(it, isAnnotationAll, putNull);
+                            bodyList.add(underlineMap);
+                        }
+                    });
+                    if (bodyList.size() > 0) {
+                        objMap.put(fName, bodyList);
+                    }
                 } else {
                     Map<String, Object> underlineMap = getUnderlineMap(o, isAnnotationAll, putNull);
                     objMap.put(fName, underlineMap);
@@ -141,8 +153,11 @@ public class ObjUtil {
         a.setaM1("method1");
         a.setbM1("b1Mthod1");
         a.protectedStr = "protectedStr";
-        a.c = new C();
-        a.c.ageInt = "test";
+        C c = new C();
+        c.ageInt = "test";
+        a.c = c;
+        a.list = new ArrayList<>();
+        a.list.add(c);
         Map<String, Object> underlineMap = getUnderlineMap(a, false, false);
         System.out.println(JsonUtil.obj2Json(underlineMap));
     }
@@ -170,6 +185,7 @@ public class ObjUtil {
         public String testAss;
         private String bM1;
         private C c;
+        List<C> list;
 
         public String getbM1() {
             return bM1;
