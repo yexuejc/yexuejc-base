@@ -35,6 +35,25 @@ public class MoneyUtil {
     }
 
     /**
+     * 分转元
+     *
+     * @param num
+     * @return String
+     * @Title: formatPrice
+     * @Description:分转元
+     * @throw
+     */
+    public static String toYuan(Long num) {
+        if (num == null) {
+            return "0.00";
+        }
+        DecimalFormat df = new DecimalFormat("0.00");
+        BigDecimal bigDecimal = new BigDecimal(num).divide(new BigDecimal(100));
+        String str = df.format(bigDecimal);
+        return str;
+    }
+
+    /**
      * 元转分
      *
      * @param num
