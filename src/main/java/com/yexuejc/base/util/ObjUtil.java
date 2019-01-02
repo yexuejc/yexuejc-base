@@ -116,7 +116,7 @@ public class ObjUtil {
                     }
                 }
                 Object o = f.get(obj);
-                if (null == o || o.getClass().isPrimitive() || o instanceof String) {
+                if (null == o || o.getClass().isPrimitive() || o instanceof String || o instanceof Enum) {
                     if (null == o && !putNull) {
                         continue;
                     }

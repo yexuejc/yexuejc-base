@@ -1,6 +1,12 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.3.2
+**time：2019-1-2 14:06:47** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. objUtil 枚举类型修复
+#
 #### version ：1.3.1
 **time：2019-1-2 14:06:47** <br/>
 **branch：** master    <br/>
