@@ -10,6 +10,7 @@
 
     <name>${project.artifactId}</name>
     <url>https://github.com/yexuejc/yexuejc-base</url>
+    <description>Common toolkits based on JDK8 packaging</description>
 
     <licenses>
         <license>
@@ -50,6 +51,11 @@
         <commons-io.version>2.6</commons-io.version>
         <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
         <guava.version>20.0</guava.version>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     </properties>
 
     <dependencies>
@@ -150,17 +156,17 @@
             <!--</plugin>-->
             <!-- GPG -->
             <!--<plugin> &lt;!&ndash; 进行延签 &ndash;&gt;-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-gpg-plugin</artifactId>-->
-                <!--<version>1.6</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>verify</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>sign</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-gpg-plugin</artifactId>-->
+            <!--<version>1.6</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>verify</phase>-->
+            <!--<goals>-->
+            <!--<goal>sign</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
         </plugins>
     </build>
@@ -185,14 +191,14 @@
     <distributionManagement>
         <!--中央仓库发布-->
         <!--<snapshotRepository>-->
-            <!--<id>sonatype-nexus-snapshots</id>-->
-            <!--<name>Sonatype Nexus Snapshots</name>-->
-            <!--<url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+        <!--<id>sonatype-nexus-snapshots</id>-->
+        <!--<name>Sonatype Nexus Snapshots</name>-->
+        <!--<url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
         <!--</snapshotRepository>-->
         <!--<repository>-->
-            <!--<id>sonatype-nexus-staging</id>-->
-            <!--<name>Nexus Release Repository</name>-->
-            <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+        <!--<id>sonatype-nexus-staging</id>-->
+        <!--<name>Nexus Release Repository</name>-->
+        <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
         <!--</repository>-->
 
         <!-- 私服仓库发布
@@ -233,6 +239,19 @@
                                 <id>attach-sources</id>
                                 <goals>
                                     <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--Javadoc-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
                                 </goals>
                             </execution>
                         </executions>

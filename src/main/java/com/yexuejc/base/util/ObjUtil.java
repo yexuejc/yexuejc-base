@@ -10,7 +10,7 @@ import java.util.*;
  * @author maxf
  * @version 1.0
  * @ClassName ObjUtil
- * @Description
+ * @Description 对象工具：对类的操作
  * @date 2018/12/28 15:54
  */
 public class ObjUtil {

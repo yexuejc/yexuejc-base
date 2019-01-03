@@ -6,9 +6,11 @@ import java.util.regex.Pattern;
 /**
  * 正则验证
  *
- * @author yexue
- * @expl
- * @time 2017年11月9日 上午11:01:24
+ * @author maxf
+ * @version 1.3.4
+ * @ClassName RegexUtil
+ * @Description
+ * @date 2019/1/3 9:33
  */
 public class RegexUtil {
     private RegexUtil() {
