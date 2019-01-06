@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
  * @date: 2018/5/12 19:13
  */
 public final class StrUtil {
+    private StrUtil() {
+    }
+
     public static char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
@@ -123,7 +126,7 @@ public final class StrUtil {
             return null;
         }
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>(16);
         String[] kv = null;
         for (String entry : entrys) {
             if (isEmpty(entry)) {
@@ -148,7 +151,7 @@ public final class StrUtil {
      * @param buf 初始字节数组
      * @return 转换后字符串
      */
-    public static String toHex(byte buf[]) {
+    public static String toHex(byte[] buf) {
         StringBuffer strbuf = new StringBuffer(buf.length * 2);
         int i;
         for (i = 0; i < buf.length; i++) {
@@ -178,7 +181,7 @@ public final class StrUtil {
             return null;
         }
         md.update(str.getBytes());
-        byte tmp[] = md.digest();
+        byte[] tmp = md.digest();
         return toHex(tmp);
     }
 
@@ -212,7 +215,7 @@ public final class StrUtil {
             return null;
         }
         messageDigest.update(str.getBytes());
-        byte tmp[] = messageDigest.digest();
+        byte[] tmp = messageDigest.digest();
         return toHex(tmp);
     }
 
@@ -238,8 +241,9 @@ public final class StrUtil {
      * @param str
      * @return
      */
+    private static Pattern pattern = Pattern.compile("[0-9]*");
+
     public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
         if (!isNum.matches()) {
             return false;
@@ -259,16 +263,17 @@ public final class StrUtil {
         }
 
         StringBuilder coded = new StringBuilder();
+        Random random = new Random();
         for (int i = 0; i < 13; i++) {
-            coded.append(HEX_CHAR[(int) (Math.random() * 15L) + 1]);
+            coded.append(HEX_CHAR[random.nextInt(16)]);
         }
         coded.append(id.substring(0, 11));
         for (int i = 0; i < 7; i++) {
-            coded.append(HEX_CHAR[(int) (Math.random() * 15L) + 1]);
+            coded.append(HEX_CHAR[random.nextInt(16)]);
         }
         coded.append(id.substring(11));
         for (int i = 0; i < 12; i++) {
-            coded.append(HEX_CHAR[(int) (Math.random() * 15L) + 1]);
+            coded.append(HEX_CHAR[random.nextInt(16)]);
         }
 
         return coded.toString();
@@ -335,7 +340,7 @@ public final class StrUtil {
      * @return
      */
     public static Map<String, Object> mapSort(Map<String, ?> sortedParams) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         List<String> keys = new ArrayList<>(sortedParams.keySet());
         Collections.sort(keys);
         int index = 0;
@@ -360,5 +365,58 @@ public final class StrUtil {
             return defMsg;
         }
         return msg;
+    }
+
+    /**
+     * 下划线字符
+     */
+    public static final char UNDERLINE = '_';
+
+    /**
+     * 字符串下划线转驼峰格式
+     *
+     * @param param 需要转换的字符串
+     * @return 转换好的字符串
+     */
+    public static String underlineToCamel(String param) {
+        if (isEmpty(param)) {
+            return "";
+        }
+        String temp = param.toLowerCase();
+        int len = temp.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = temp.charAt(i);
+            if (c == UNDERLINE) {
+                if (++i < len) {
+                    sb.append(Character.toUpperCase(temp.charAt(i)));
+                }
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 字符串驼峰转下划线格式
+     *
+     * @param param 需要转换的字符串
+     * @return 转换好的字符串
+     */
+    public static String camelToUnderline(String param) {
+        if (isEmpty(param)) {
+            return "";
+        }
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = param.charAt(i);
+            if (Character.isUpperCase(c) && i > 0) {
+                sb.append(UNDERLINE);
+            }
+            sb.append(Character.toLowerCase(c));
+        }
+        return sb.toString();
     }
 }

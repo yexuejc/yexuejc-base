@@ -8,8 +8,9 @@ package com.yexuejc.base.util;
  * @author: maxf
  * @date: 2017/12/27 16:42
  */
-public class ExcelImportUtils {
-
+public class ExcelImportUtil {
+    private ExcelImportUtil() {
+    }
 
     /**
      * 是否是2003的excel，返回true是2003
@@ -40,7 +41,8 @@ public class ExcelImportUtils {
      * @return
      */
     public static boolean validateExcel(String filePath) {
-        if (filePath == null || !(isExcel2003(filePath) || isExcel2007(filePath))) {
+        boolean b = filePath == null || !(isExcel2003(filePath) || isExcel2007(filePath));
+        if (b) {
             return false;
         }
         return true;

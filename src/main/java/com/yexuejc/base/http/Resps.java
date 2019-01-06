@@ -59,18 +59,18 @@ public class Resps<T> implements Serializable {
     }
 
     public Resps<T> setSucc(T t) {
-        setSucc(t, RespsConsts.MSG_SUCCESS_OPERATE);
+        this.data = t;
         return this;
     }
 
     public Resps<T> setSucc(T t, String msg) {
-        setSucc(t, new String[]{msg});
+        this.setMsg(new String[]{msg});
+        this.setData(t);
         return this;
     }
 
     public Resps<T> setSucc(T t, String[] msg) {
         this.setData(t);
-        this.setCode(RespsConsts.CODE_SUCCESS);
         this.setMsg(msg);
         return this;
     }
@@ -79,6 +79,14 @@ public class Resps<T> implements Serializable {
         this.setCode(code);
         this.setMsg(msg);
         return this;
+    }
+
+    public static Resps success(String code, String msg) {
+        return new Resps(code, msg);
+    }
+
+    public static Resps success(String code, String[] msg) {
+        return new Resps(code, msg);
     }
 
     public static Resps success(String[] msg) {
@@ -91,6 +99,10 @@ public class Resps<T> implements Serializable {
 
     public static Resps success() {
         return new Resps(RespsConsts.CODE_SUCCESS, RespsConsts.MSG_SUCCESS_OPERATE);
+    }
+
+    public static Resps error() {
+        return new Resps(RespsConsts.CODE_ERROR, RespsConsts.MSG_ERROT_OPERATE);
     }
 
     public static Resps error(String msg) {
@@ -107,6 +119,10 @@ public class Resps<T> implements Serializable {
 
     public static Resps error(String code, String[] msg) {
         return new Resps(code, msg);
+    }
+
+    public static Resps fail() {
+        return new Resps(RespsConsts.CODE_FAIL, RespsConsts.MSG_FAIL_OPERATE);
     }
 
     public static Resps fail(String msg) {

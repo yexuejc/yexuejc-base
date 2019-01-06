@@ -9,13 +9,13 @@ package com.yexuejc.base.util;
  * @author: maxf
  * @date: 2017年11月23日 下午3:17:58
  */
-public class AlgorithmUtils {
+public class AlgorithmUtil {
     private static final int LENGTH_1 = 1;
     private static final int LENGTH_2 = 2;
     private static final int LENGTH_3 = 3;
     private static final int LENGTH_36 = 36;
 
-    private AlgorithmUtils() {
+    private AlgorithmUtil() {
     }
 
     private static final String X36 = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -77,7 +77,7 @@ public class AlgorithmUtils {
      * @throw
      */
     public static int x36ConvertTo10(String pStr) {
-        if (pStr == "") {
+        if (StrUtil.isEmpty(pStr)) {
             return 0;
         }
         // 目标十进制数初始化为0
@@ -107,4 +107,47 @@ public class AlgorithmUtils {
     static class NextCodeException extends Exception {
         private static final long serialVersionUID = 8956943499144648985L;
     }
+
+    /**
+     * 16进制转为2进制
+     *
+     * @param hexString 16进制字符串
+     */
+    public static String x16ConvertTo2(String hexString) {
+        if (hexString == null || hexString.length() % 2 != 0) {
+            return null;
+        }
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < hexString.length(); i++) {
+            String tmp = "0000" + Integer.toBinaryString(Integer.parseInt(hexString.substring(i, i + 1), 16));
+            buf.append(tmp.substring(tmp.length() - 4));
+        }
+        return buf.toString();
+    }
+
+    /**
+     * 16进制转为2进制byte[]
+     *
+     * @param hexString 16进制字符串
+     * @return
+     */
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || "".equals(hexString)) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+        }
+        return d;
+    }
+
+    private static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
+
 }

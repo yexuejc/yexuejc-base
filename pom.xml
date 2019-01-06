@@ -4,14 +4,42 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.yexuejc.base</groupId>
+    <groupId>top.yexuejc</groupId>
     <artifactId>yexuejc-base</artifactId>
-    <version>1.1.7</version>
+    <version>1.3.4</version>
 
     <name>${project.artifactId}</name>
+    <url>https://github.com/yexuejc/yexuejc-base</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>yexuejc</name>
+            <email>yexuejc@gmail.com</email>
+            <organization>Chengdu Ultimate Thinking Network Technology Co., Ltd.</organization>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>
+            scm:git:https://github.com/yexuejc/yexuejc-base.git
+        </connection>
+        <developerConnection>
+            scm:git:https://github.com/yexuejc/yexuejc-base.git
+        </developerConnection>
+        <url>https://github.com/yexuejc/yexuejc-base</url>
+    </scm>
 
     <properties>
         <repos.yexuejc.url>https://nexus.yexuejc.club/repository/</repos.yexuejc.url>
+        <repos.mcworle.url>https://nexus.mcworle.com/repository/</repos.mcworle.url>
         <repos.aliyun.url>http://maven.aliyun.com/nexus/content/groups/public</repos.aliyun.url>
         <repos.jitpack.url>https://jitpack.io</repos.jitpack.url>
         <jjwt.version>0.7.0</jjwt.version>
@@ -20,6 +48,8 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-io.version>2.6</commons-io.version>
+        <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
+        <guava.version>20.0</guava.version>
     </properties>
 
     <dependencies>
@@ -48,6 +78,18 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
+        <!--支持大量的密码术算法，并提供JCE 1.2.1的实现-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bcprov-jdk15on.version}</version>
+        </dependency>
+        <!--com.yexuejc.base.util.SysUtil.threadRun 异步处理代码-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
     </dependencies>
 
 
@@ -59,8 +101,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <!-- 打包源码 -->
@@ -93,6 +135,33 @@
                     <executable>true</executable>
                 </configuration>
             </plugin>
+            <!-- Javadoc -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>package</phase>-->
+            <!--<goals>-->
+            <!--<goal>jar</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
+            <!-- GPG -->
+            <!--<plugin> &lt;!&ndash; 进行延签 &ndash;&gt;-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-gpg-plugin</artifactId>-->
+                <!--<version>1.6</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>verify</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>sign</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
     <repositories>
@@ -111,8 +180,22 @@
             <url>${repos.jitpack.url}</url>
         </repository>
     </repositories>
+
     <!-- 中间件jar包发布目标 -->
     <distributionManagement>
+        <!--中央仓库发布-->
+        <!--<snapshotRepository>-->
+            <!--<id>sonatype-nexus-snapshots</id>-->
+            <!--<name>Sonatype Nexus Snapshots</name>-->
+            <!--<url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+        <!--</snapshotRepository>-->
+        <!--<repository>-->
+            <!--<id>sonatype-nexus-staging</id>-->
+            <!--<name>Nexus Release Repository</name>-->
+            <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+        <!--</repository>-->
+
+        <!-- 私服仓库发布
         <repository>
             <id>releases</id>
             <name>nexus-release</name>
@@ -123,5 +206,52 @@
             <name>nexus-snapshots</name>
             <url>${repos.yexuejc.url}maven-snapshots/</url>
         </snapshotRepository>
+        -->
+
+        <repository>
+            <id>releases</id>
+            <name>nexus-release</name>
+            <url>${repos.mcworle.url}maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>nexus-snapshots</name>
+            <url>${repos.mcworle.url}maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>sonatype-oss-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

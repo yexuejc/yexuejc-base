@@ -3,8 +3,15 @@ package com.yexuejc.base.util;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
+/**
+ * map相关工具
+ *
+ * @author maxf
+ * @ClassName MapRemoveNullUtil
+ * @Description
+ * @date 2018/9/3 15:32
+ */
 public class MapRemoveNullUtil {
     private MapRemoveNullUtil() {
     }
@@ -28,10 +35,11 @@ public class MapRemoveNullUtil {
      * @return
      */
     public static Map removeNullKey(Map map) {
-        Set set = map.keySet();
-        for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
-            Object obj = (Object) iterator.next();
-            remove(obj, iterator);
+        for (Iterator it = map.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry item = (Map.Entry) it.next();
+            if (StrUtil.isEmpty(item.getKey())) {
+                it.remove();
+            }
         }
         return map;
     }
@@ -43,11 +51,11 @@ public class MapRemoveNullUtil {
      * @return
      */
     public static Map removeNullValue(Map map) {
-        Set set = map.keySet();
-        for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
-            Object obj = (Object) iterator.next();
-            Object value = (Object) map.get(obj);
-            remove(value, iterator);
+        for (Iterator it = map.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry item = (Map.Entry) it.next();
+            if (StrUtil.isEmpty(item.getValue())) {
+                it.remove();
+            }
         }
         return map;
     }

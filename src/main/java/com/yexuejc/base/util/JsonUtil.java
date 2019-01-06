@@ -5,11 +5,24 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.type.MapType;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.logging.Logger;
 
+/**
+ * json工具类，基于jackson
+ *
+ * @author maxf
+ * @ClassName JsonUtil
+ * @Description
+ * @date 2018/9/3 15:28
+ */
 public class JsonUtil {
+    private static Logger log = Logger.getLogger(JsonUtil.class.getName());
+
     private JsonUtil() {
     }
 
@@ -60,8 +73,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, cls);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
 
         return pojo;
@@ -80,19 +96,23 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, cls);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
 
         return pojo;
     }
 
+
     /**
      * Json字符串转换为Java对象
      *
-     * @param json
-     * @param parametrized
-     * @param parameterClasses
+     * @param json             字符串
+     * @param parametrized     容器类
+     * @param parameterClasses 实际类
      * @return
      */
     public static <T> T json2Obj(String json, Class<T> parametrized, Class<?>... parameterClasses) {
@@ -102,8 +122,61 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, javaType);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
+        }
+        return pojo;
+    }
+
+    /**
+     * Json字符串转换为Java-Map对象
+     *
+     * @param json       字符串
+     * @param mapClass   Map 继承类
+     * @param keyClass   Key 类
+     * @param valueClass Value 类
+     * @param <T>
+     * @return
+     */
+    public static <T> T json2Obj(String json, Class<? extends Map> mapClass, Class<?> keyClass, Class<?> valueClass) {
+        T pojo = null;
+        MapType mapType = objectMapper.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
+        try {
+            pojo = objectMapper.readValue(json, mapType);
+        } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
+        } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
+        } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
+        }
+        return pojo;
+    }
+
+    /**
+     * Json字符串转换为Java-Map对象
+     *
+     * @param json      字符串
+     * @param mapClass  Map 继承类
+     * @param keyType   Key 类
+     * @param valueType Value 类
+     * @param <T>
+     * @return
+     */
+    public static <T> T json2Obj(String json, Class<? extends Map> mapClass, JavaType keyType, JavaType valueType) {
+        T pojo = null;
+        MapType mapType = objectMapper.getTypeFactory().constructMapType(mapClass, keyType, valueType);
+        try {
+            pojo = objectMapper.readValue(json, mapType);
+        } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
+        } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
+        } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
         return pojo;
     }
@@ -111,9 +184,9 @@ public class JsonUtil {
     /**
      * Json字符串转换为Java对象
      *
-     * @param json
-     * @param parametrized
-     * @param parameterClasses
+     * @param json             字符串
+     * @param parametrized     容器类
+     * @param parameterClasses 实际类
      * @return
      */
     public static <T> T json2Obj(InputStream json, Class<T> parametrized, Class<?>... parameterClasses) {
@@ -123,8 +196,11 @@ public class JsonUtil {
         try {
             pojo = objectMapper.readValue(json, javaType);
         } catch (JsonParseException e) {
+            log.warning("json to Object JsonParseException.\n" + e.getMessage());
         } catch (JsonMappingException e) {
+            log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
+            log.warning("json to Object IOException.\n" + e.getMessage());
         }
         return pojo;
     }
@@ -140,6 +216,7 @@ public class JsonUtil {
         try {
             json = objectMapper.writeValueAsString(pojo);
         } catch (JsonProcessingException e) {
+            log.warning("json to Object JsonProcessingException.\n" + e.getMessage());
         }
         return json;
     }

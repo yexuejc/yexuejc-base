@@ -13,6 +13,9 @@ import java.util.Date;
  * @date: 2018/3/27 10:44
  */
 public class DateTimeUtil {
+    private DateTimeUtil() {
+    }
+
     /**
      * 获取本年第一天
      *
@@ -106,8 +109,9 @@ public class DateTimeUtil {
      * @return
      */
     public static LocalDate getWeek4First(LocalDate date) {
-        TemporalAdjuster FIRST_OF_WEEK = TemporalAdjusters.ofDateAdjuster(localDate -> localDate.minusDays(localDate.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue()));
-        return date.with(FIRST_OF_WEEK);
+        TemporalAdjuster firstOfWeek = TemporalAdjusters.ofDateAdjuster(localDate ->
+                localDate.minusDays(localDate.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue()));
+        return date.with(firstOfWeek);
     }
 
     /**
@@ -126,8 +130,9 @@ public class DateTimeUtil {
      * @return
      */
     public static LocalDate getWeek4Last(LocalDate date) {
-        TemporalAdjuster LAST_OF_WEEK = TemporalAdjusters.ofDateAdjuster(localDate -> localDate.plusDays(DayOfWeek.SUNDAY.getValue() - localDate.getDayOfWeek().getValue()));
-        return date.with(LAST_OF_WEEK);
+        TemporalAdjuster lastOfWeek = TemporalAdjusters.ofDateAdjuster(localDate ->
+                localDate.plusDays(DayOfWeek.SUNDAY.getValue() - localDate.getDayOfWeek().getValue()));
+        return date.with(lastOfWeek);
     }
 
     /**
@@ -268,22 +273,22 @@ public class DateTimeUtil {
         return df.format(dateTime);
     }
 
-    public static void main(String[] args) {
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        System.out.println(df.format(zonedDateTime2Date(ZonedDateTime.now())));
-//        System.out.println(df2.format(date2ZonedDateTime(new Date())));
+   /** public static void main(String[] args) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(df.format(zonedDateTime2Date(ZonedDateTime.now())));
+        System.out.println(df2.format(date2ZonedDateTime(new Date())));
 
-//        System.out.println(getWeek4First());
+        System.out.println(getWeek4First());
         System.out.println(format(getWeek4First(LocalDate.parse("2018-02-10")).atTime(LocalTime.MIN)));
         System.out.println(format(getWeek4Last(LocalDate.parse("2018-02-10")).atTime(LocalTime.MAX)));
 
-//        System.out.println(format(getMonth4First().atTime(LocalTime.MIN)));
-//        System.out.println(format(getMonth4Last().atTime(LocalTime.MAX)));
+        System.out.println(format(getMonth4First().atTime(LocalTime.MIN)));
+        System.out.println(format(getMonth4Last().atTime(LocalTime.MAX)));
 
-//        System.out.println(format(getYear4First().atTime(LocalTime.MIN)));
-//        System.out.println(format(getYear4Last().atTime(LocalTime.MAX)));
+        System.out.println(format(getYear4First().atTime(LocalTime.MIN)));
+        System.out.println(format(getYear4Last().atTime(LocalTime.MAX)));
 
-    }
+    }*/
 
 
 }
