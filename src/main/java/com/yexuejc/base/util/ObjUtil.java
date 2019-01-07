@@ -2,6 +2,7 @@ package com.yexuejc.base.util;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -116,7 +117,7 @@ public class ObjUtil {
                     }
                 }
                 Object o = f.get(obj);
-                if (null == o || o.getClass().isPrimitive() || o instanceof String || o instanceof Enum) {
+                if (null == o || isPrimitive(o) || o instanceof String || o instanceof Enum) {
                     if (null == o && !putNull) {
                         continue;
                     }
@@ -124,6 +125,23 @@ public class ObjUtil {
                 } else if (o instanceof List) {
                     List list = (List) o;
                     List bodyList = new ArrayList();
+                    list.forEach(it -> {
+                        if (null != it) {
+                            Map<String, Object> underlineMap = getUnderlineMap(it, isAnnotationAll, putNull);
+                            bodyList.add(underlineMap);
+                        }
+                    });
+                    if (bodyList.size() > 0) {
+                        objMap.put(fName, bodyList);
+                    }
+                } else if (o instanceof Map) {
+                    Map map = (Map) o;
+                    if (map.size() > 0) {
+                        objMap.put(fName, map);
+                    }
+                } else if (o instanceof Set) {
+                    Set list = (Set) o;
+                    Set bodyList = new HashSet();
                     list.forEach(it -> {
                         if (null != it) {
                             Map<String, Object> underlineMap = getUnderlineMap(it, isAnnotationAll, putNull);
@@ -142,6 +160,27 @@ public class ObjUtil {
             System.out.println(e.getMessage());
         }
         return objMap;
+    }
+
+    /**
+     * 判断是否基本类型（包括String,BigDecimal,Number）
+     *
+     * @param obj
+     * @return
+     */
+    public static boolean isPrimitive(Object obj) {
+        if (null == obj) {
+            return false;
+        }
+        boolean b = obj.getClass().isPrimitive()
+                || obj instanceof Integer || obj instanceof Character || obj instanceof Boolean
+                || obj instanceof Number || obj instanceof String || obj instanceof Double || obj instanceof Float
+                || obj instanceof Short || obj instanceof Long || obj instanceof Byte || obj instanceof Date
+                ;
+        if (b) {
+            return true;
+        }
+        return false;
     }
 
 
