@@ -1,6 +1,12 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.3.6
+**time：2019-1-10 14:55:13** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. json增加下划线、驼峰互转
+#
 #### version ：1.3.5
 **time：2019-1-7 17:19:22** <br/>
 **branch：** master    <br/>
