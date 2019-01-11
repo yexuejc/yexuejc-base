@@ -2,14 +2,8 @@ package com.yexuejc.base.encrypt;
 
 import com.yexuejc.base.util.StrUtil;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
+import java.io.*;
+import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
@@ -192,4 +186,122 @@ public class RSA2 {
         return (RSAPrivateKey) ks.getKey(alias, password.toCharArray());
     }
 
+    /**
+     * 证书格式转换 JKS(xx.keystore) 转 PKCS12(xx.pfx)
+     *
+     * @param inPath  证书输入文件路径
+     * @param outPath 证书输出文件路径
+     * @param oPwd    原证书密码
+     * @param nPwd    新证书密码（为空同原证书密码一致）
+     */
+    public static void cover2Pfx(String inPath, String outPath, String oPwd, String nPwd) {
+        try {
+            FileInputStream fis = new FileInputStream(inPath);
+            FileOutputStream out = new FileOutputStream(outPath);
+            if (nPwd == null) {
+                nPwd = oPwd;
+            }
+            cover2Pfx(fis, out, oPwd.toCharArray(), nPwd.toCharArray());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 证书格式转换 JKS(xx.keystore) 转 PKCS12(xx.pfx)
+     *
+     * @param fis  证书输入文件流
+     * @param out  证书输出文件流[自行关闭->out.close()]
+     * @param oPwd 原证书密码
+     * @param nPwd 新证书密码（为空同原证书密码一致）
+     */
+    public static void cover2Pfx(FileInputStream fis, FileOutputStream out, char[] oPwd, char[] nPwd) {
+        try {
+            KeyStore inputKeyStore = KeyStore.getInstance("JKS");
+            cover(fis, out, oPwd, nPwd, inputKeyStore, "PKCS12");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 证书格式转换 PKCS12(xx.pfx)  转  JKS(xx.keystore)
+     *
+     * @param inPath  证书输入文件路径
+     * @param outPath 证书输出文件路径
+     * @param oPwd    原证书密码
+     * @param nPwd    新证书密码（为空同原证书密码一致）
+     */
+    public static void cover2keyStore(String inPath, String outPath, String oPwd, String nPwd) {
+        try {
+            FileInputStream fis = new FileInputStream(inPath);
+            FileOutputStream out = new FileOutputStream(outPath);
+            if (nPwd == null) {
+                nPwd = oPwd;
+            }
+            cover2keyStore(fis, out, oPwd.toCharArray(), nPwd.toCharArray());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 证书格式转换 PKCS12(xx.pfx)  转  JKS(xx.keystore)
+     *
+     * @param fis  证书输入文件流
+     * @param out  证书输出文件流[自行关闭->out.close()]
+     * @param oPwd 原证书密码
+     * @param nPwd 新证书密码（为空同原证书密码一致）
+     */
+    public static void cover2keyStore(FileInputStream fis, FileOutputStream out, char[] oPwd, char[] nPwd) {
+        try {
+            KeyStore inputKeyStore = KeyStore.getInstance("PKCS12");
+            cover(fis, out, oPwd, nPwd, inputKeyStore, "JKS");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 证书转换操作
+     *
+     * @param fis           证书输入文件流
+     * @param out           证书输出文件流[自行关闭->out.close()]
+     * @param oPwd          原证书密码
+     * @param nPwd          新证书密码（为空同原证书密码一致）
+     * @param inputKeyStore 输入格式
+     * @param type          目标类型
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws CertificateException
+     * @throws KeyStoreException
+     * @throws UnrecoverableKeyException
+     */
+    public static void cover(FileInputStream fis, FileOutputStream out, char[] oPwd, char[] nPwd, KeyStore inputKeyStore, String type) throws IOException, NoSuchAlgorithmException, CertificateException, KeyStoreException, UnrecoverableKeyException {
+        inputKeyStore.load(fis, oPwd);
+        fis.close();
+        if (nPwd == null) {
+            nPwd = oPwd;
+        }
+        KeyStore outputKeyStore = KeyStore.getInstance(type);
+        outputKeyStore.load(null, nPwd);
+        Enumeration<String> enums = inputKeyStore.aliases();
+        while (enums.hasMoreElements()) {
+            String keyAlias = enums.nextElement();
+            System.out.println("alias=[" + keyAlias + "]");
+            if (inputKeyStore.isKeyEntry(keyAlias)) {
+                Key key = inputKeyStore.getKey(keyAlias, oPwd);
+                Certificate[] certChain = inputKeyStore.getCertificateChain(keyAlias);
+                outputKeyStore.setKeyEntry(keyAlias, key, nPwd, certChain);
+            }
+        }
+        outputKeyStore.store(out, nPwd);
+    }
+
+    public static void main(String[] args) {
+        cover2Pfx("D:\\mykeystore.keystore", "D:\\m1.pfx", "123456", null);
+    }
 }

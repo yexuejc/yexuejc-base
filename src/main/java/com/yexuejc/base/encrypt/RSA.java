@@ -1,23 +1,21 @@
 package com.yexuejc.base.encrypt;
 
-
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.security.*;
+import java.security.cert.Certificate;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * RSA加解密 配置模式
@@ -71,7 +69,6 @@ public class RSA {
      */
     public static SignAlgorithm signAlgorithm = SignAlgorithm.SHA1withRSA;
 
-
     /**
      * 生成密钥对
      *
@@ -122,7 +119,6 @@ public class RSA {
 
         return keyPairMap;
     }
-
 
     /**
      * 得到公钥
@@ -202,7 +198,6 @@ public class RSA {
             throw new RuntimeException("解密字符串[" + data + "]时遇到异常", e);
         }
     }
-
 
     /**
      * 私钥加密
@@ -309,7 +304,6 @@ public class RSA {
     }
 
     private static Signature signature;
-
 
     /**
      * /**
