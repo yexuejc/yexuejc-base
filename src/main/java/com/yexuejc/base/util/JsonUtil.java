@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
 /**
  * json工具类，基于jackson
  *
@@ -48,6 +47,10 @@ public class JsonUtil {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.setDateFormat(DateUtil.DATE_TIME_FORMAT);
+    }
+
+    //TODO 待优化
+    public static void initSnakeCase() {
         //驼峰下划线互转
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
@@ -108,7 +111,6 @@ public class JsonUtil {
 
         return pojo;
     }
-
 
     /**
      * Json字符串转换为Java对象
