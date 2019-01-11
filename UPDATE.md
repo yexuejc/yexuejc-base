@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.3.9
+**time：2019-1-11 16:50:51** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. RSA2 增加证书格式转换 JKS(xx.keystore) 、 PKCS12(xx.pfx)相互转换
+#
+
 #### version ：1.3.8
 **time：2019-1-11 13:28:12** <br/>
 **branch：** master    <br/>
