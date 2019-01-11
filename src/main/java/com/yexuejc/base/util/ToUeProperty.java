@@ -11,4 +11,10 @@ public @interface ToUeProperty {
      * @return
      */
     String value() default "";
+
+    /**
+     * 是否忽略该字段，默认false
+     * @return
+     */
+    boolean ignore() default false;
 }

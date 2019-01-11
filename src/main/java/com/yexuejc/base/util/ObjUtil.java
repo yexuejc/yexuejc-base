@@ -109,12 +109,18 @@ public class ObjUtil {
                     fName = StrUtil.camelToUnderline(f.getName());
                 }
                 boolean annotationPresent = f.isAnnotationPresent(ToUeProperty.class);
+                boolean ignore = false;
                 if (annotationPresent) {
                     ToUeProperty annotation = f.getAnnotation(ToUeProperty.class);
+                    ignore = annotation.ignore();
                     String value = annotation.value();
                     if (StrUtil.isNotEmpty(value)) {
                         fName = value;
                     }
+                }
+                //忽略
+                if (ignore) {
+                    continue;
                 }
                 Object o = f.get(obj);
                 if (null == o || isPrimitive(o) || o instanceof String || o instanceof Enum) {
@@ -175,14 +181,12 @@ public class ObjUtil {
         boolean b = obj.getClass().isPrimitive()
                 || obj instanceof Integer || obj instanceof Character || obj instanceof Boolean
                 || obj instanceof Number || obj instanceof String || obj instanceof Double || obj instanceof Float
-                || obj instanceof Short || obj instanceof Long || obj instanceof Byte || obj instanceof Date
-                ;
+                || obj instanceof Short || obj instanceof Long || obj instanceof Byte || obj instanceof Date;
         if (b) {
             return true;
         }
         return false;
     }
-
 
     public static void main(String[] args) {
         B a = new B();
@@ -250,7 +254,6 @@ public class ObjUtil {
             return this;
         }
     }
-
 
     /**
      * <h2>深度克隆对象</h2>

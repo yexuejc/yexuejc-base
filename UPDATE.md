@@ -1,6 +1,13 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.3.8
+**time：2019-1-11 13:28:12** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. [ToUeProperty](src/main/java/com/yexuejc/base/util/ToUeProperty.java) 增加 ignore
+#
+
 #### version ：1.3.7
 **time：2019-1-11 10:02:03** <br/>
 **branch：** master    <br/>
