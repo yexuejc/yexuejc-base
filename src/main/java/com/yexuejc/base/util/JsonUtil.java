@@ -225,4 +225,20 @@ public class JsonUtil {
         }
         return json;
     }
+
+    /**
+     * 格式化输出
+     *
+     * @param obj 需要输出对象
+     * @return 格式化后的字符串
+     */
+    public static String formatPrinter(Object obj) {
+        String json = null;
+        try {
+            json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            log.warning("json to Object JsonProcessingException.\n" + e.getMessage());
+        }
+        return json;
+    }
 }
