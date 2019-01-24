@@ -7,15 +7,14 @@ import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import java.io.*;
 import java.security.*;
-import java.security.cert.Certificate;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * RSA加解密 配置模式
@@ -26,7 +25,7 @@ import java.util.Map;
  * @date: 2018/5/15 14:39
  */
 public class RSA {
-
+    private static Logger log = Logger.getLogger(RSA.class.getName());
     public static final String CHARSET = "UTF-8";
     public static final String RSA_ALGORITHM = "RSA";
     /**
@@ -116,7 +115,6 @@ public class RSA {
         Map<String, String> keyPairMap = new HashMap<String, String>(2);
         keyPairMap.put("publicKey", publicKeyStr);
         keyPairMap.put("privateKey", privateKeyStr);
-
         return keyPairMap;
     }
 
@@ -306,7 +304,6 @@ public class RSA {
     private static Signature signature;
 
     /**
-     * /**
      * 私钥签名：默认算法SHA1withRSA
      * <p>
      * 签名算法 {@link SignAlgorithm}

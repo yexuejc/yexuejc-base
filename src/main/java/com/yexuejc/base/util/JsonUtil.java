@@ -98,7 +98,6 @@ public class JsonUtil {
      */
     public static <T> T json2Obj(String json, Class<T> cls) {
         T pojo = null;
-
         try {
             pojo = objectMapper.readValue(json, cls);
         } catch (JsonParseException e) {
@@ -107,6 +106,8 @@ public class JsonUtil {
             log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
             log.warning("json to Object IOException.\n" + e.getMessage());
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         return pojo;
