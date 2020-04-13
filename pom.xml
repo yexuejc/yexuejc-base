@@ -51,6 +51,7 @@
         <commons-io.version>2.6</commons-io.version>
         <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
         <guava.version>20.0</guava.version>
+        <apache-poi.version>3.13</apache-poi.version>
         <!-- 文件拷贝时的编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -96,6 +97,18 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apache-poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apache-poi.version}</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -201,7 +214,7 @@
         <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
         <!--</repository>-->
 
-        <!-- 私服仓库发布
+        <!-- 私服仓库发布-->
         <repository>
             <id>releases</id>
             <name>nexus-release</name>
@@ -212,9 +225,9 @@
             <name>nexus-snapshots</name>
             <url>${repos.yexuejc.url}maven-snapshots/</url>
         </snapshotRepository>
-        -->
 
-        <repository>
+
+       <!-- <repository>
             <id>releases</id>
             <name>nexus-release</name>
             <url>${repos.mcworle.url}maven-releases/</url>
@@ -223,7 +236,7 @@
             <id>snapshots</id>
             <name>nexus-snapshots</name>
             <url>${repos.mcworle.url}maven-snapshots/</url>
-        </snapshotRepository>
+        </snapshotRepository>-->
     </distributionManagement>
 
     <profiles>
