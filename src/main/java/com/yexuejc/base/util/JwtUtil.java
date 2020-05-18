@@ -124,4 +124,19 @@ public class JwtUtil {
         return JsonUtil.json2Obj(subject, cls);
     }
 
+    /**
+     * 解密token为字符串
+     *
+     * @param token
+     * @return
+     */
+    public String parseStr(String token) {
+        String subject = null;
+        try {
+            subject = Jwts.parser().setSigningKey(JWT_SIGNATURE_KEY).parseClaimsJws(token).getBody().getSubject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return subject;
+    }
 }

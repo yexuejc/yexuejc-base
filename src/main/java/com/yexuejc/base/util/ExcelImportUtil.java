@@ -1,5 +1,15 @@
 package com.yexuejc.base.util;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 /**
  * excel 格式验证工具
  *
@@ -46,6 +56,21 @@ public class ExcelImportUtil {
             return false;
         }
         return true;
+    }
+
+    public void readExcel(String path) throws IOException {
+        Workbook wb = null;
+        if (isExcel2007(path)) {
+            wb = new XSSFWorkbook(new FileInputStream(new File(path)));
+        } else if (isExcel2003(path)) {
+            wb = new HSSFWorkbook(new FileInputStream(new File(path)));
+        } else {
+            throw new NullPointerException("请上传excel文件");
+        }
+        Sheet sheet = wb.getSheetAt(0);
+        for (int i = 2; i < sheet.getLastRowNum() + 1; i++) {
+            Row row = sheet.getRow(i);
+        }
     }
 
 
