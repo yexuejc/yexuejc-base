@@ -1,6 +1,14 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.4.0
+**time：2020-5-18 12:06:14** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 更新仓库地址 https://nexus.yexuejc.club/ 为 https://nexus.yexuejc.top/
+>2. 优化Execl 和 Jwt 工具
+#
+
 #### version ：1.3.9
 **time：2019-1-11 16:50:51** <br/>
 **branch：** master    <br/>
