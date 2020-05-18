@@ -39,7 +39,7 @@
     </scm>
 
     <properties>
-        <repos.yexuejc.url>https://nexus.yexuejc.club/repository/</repos.yexuejc.url>
+        <repos.yexuejc.url>https://nexus.yexuejc.top/repository/</repos.yexuejc.url>
         <repos.mcworle.url>https://nexus.mcworle.com/repository/</repos.mcworle.url>
         <repos.aliyun.url>http://maven.aliyun.com/nexus/content/groups/public</repos.aliyun.url>
         <repos.jitpack.url>https://jitpack.io</repos.jitpack.url>
@@ -217,12 +217,12 @@
         <repository>
             <id>releases</id>
             <name>nexus-release</name>
-            <url>${repos.mcworle.url}maven-releases/</url>
+            <url>${repos.yexuejc.url}maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>nexus-snapshots</name>
-            <url>${repos.mcworle.url}maven-snapshots/</url>
+            <url>${repos.yexuejc.url}maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
