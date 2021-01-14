@@ -51,7 +51,7 @@
         <commons-io.version>2.6</commons-io.version>
         <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
         <guava.version>20.0</guava.version>
-        <apache-poi.version>3.13</apache-poi.version>
+        <apache-poi.version>4.1.2</apache-poi.version>
         <!-- 文件拷贝时的编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
