@@ -19,11 +19,11 @@ gitee:https://gitee.com/jzsw-it/yexuejc-base
 >
 >4. `1.1.9` 升级JWT为单例类
 >5. `1.2.3` 修复RSA加密(签名)Base64Url 问题，如需使用RSA请使用1.2.3+
->##### 6. 从`1.3.0`开始，版本维护转由`成都极致思维网络科技有限公司`向maven中央仓库发布版本，同时变更组织`groupId`为`top.yexuejc`。使用者请尽快升级到`1.3.0`以上（1.3.0代码向下兼容） 
+>##### 6. 从`1.3.0`开始，变更组织`groupId`为`top.yexuejc`。使用者请尽快升级到`1.3.0`以上（1.3.0代码向下兼容） 
 
 
 ### 使用
->yexuejc.base.version=1.3.0
+>yexuejc.base.version=1.4.1
 
 pom.xml
 ```

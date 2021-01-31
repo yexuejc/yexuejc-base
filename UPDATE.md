@@ -1,6 +1,19 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.4.1
+**time：2021-1-31 12:59:24** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 升级所有依赖
+>1. 增加DateTimeUtil类的功能
+#
+#### version ：1.4.0
+**time：2020-04-13 20:49:32** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 优化Execl 和 Jwt 工具
+#
 #### version ：1.3.9
 **time：2019-1-11 16:50:51** <br/>
 **branch：** master    <br/>
