@@ -149,6 +149,55 @@ public class DateTimeUtil {
     }
 
     /**
+     * LocalDate 转 Date
+     *
+     * @param localDate
+     * @return
+     */
+    public static Date parseDate(LocalDate localDate) {
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        return Date.from(instant);
+    }
+
+    /**
+     * LocalDateTime 转 Date
+     *
+     * @param localDateTime
+     * @return
+     */
+    public static Date parseDate(LocalDateTime localDateTime) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * LocalTime 转 Date
+     *
+     * @param localTime 时间
+     * @return 当前日期的指定时间
+     */
+    public static Date parseDate(LocalTime localTime) {
+        LocalDate localDate = LocalDate.now();
+        return parseDate(localDate, localTime);
+    }
+
+    /**
+     * LocalDate + LocalTime 转 Date
+     *
+     * @param localDate 日期
+     * @param localTime 时间
+     * @return 指定日期的指定时间
+     */
+    public static Date parseDate(LocalDate localDate, LocalTime localTime) {
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        return Date.from(instant);
+    }
+
+    /**
      * Date 转 ZonedDateTime
      *
      * @param date
@@ -173,30 +222,6 @@ public class DateTimeUtil {
     }
 
     /**
-     * LocalDateTime 转 Date
-     *
-     * @param localDateTime
-     * @return
-     */
-    public static Date parseLocalDateTime(LocalDateTime localDateTime) {
-        ZoneId zoneId = ZoneId.systemDefault();
-        ZonedDateTime zdt = localDateTime.atZone(zoneId);
-        return Date.from(zdt.toInstant());
-    }
-
-    /**
-     * LocalDate 转 Date
-     *
-     * @param localDate
-     * @return
-     */
-    public static Date parseData(LocalDate localDate) {
-        ZoneId zone = ZoneId.systemDefault();
-        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
-        return Date.from(instant);
-    }
-
-    /**
      * Date 转 LocalDate
      *
      * @param date
@@ -204,9 +229,8 @@ public class DateTimeUtil {
      */
     public static LocalDate parseLocalDate(Date date) {
         Instant instant = date.toInstant();
-        ZoneId zone = ZoneId.systemDefault();
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
-        return localDateTime.toLocalDate();
+        ZoneId zoneId = ZoneId.systemDefault();
+        return instant.atZone(zoneId).toLocalDate();
     }
 
     /**
@@ -223,30 +247,40 @@ public class DateTimeUtil {
     }
 
     /**
-     * Date 转 LocalTime
+     * Long 转 LocalDateTime
      *
-     * @param localTime
-     * @return 当前日期的指定时间
+     * @param timestamp 13位（毫秒）
+     * @return
      */
-    public static Date parseDate(LocalTime localTime) {
-        LocalDate localDate = LocalDate.now();
-        return parseDate(localDate, localTime);
+    public static LocalDateTime parseLocalDateTime13(long timestamp) {
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        ZoneId zone = ZoneId.systemDefault();
+        return LocalDateTime.ofInstant(instant, zone);
     }
 
     /**
-     * Date 转 LocalTime
+     * Long 转 LocalDateTime
      *
-     * @param localDate
-     * @param localTime
-     * @return 指定日期的指定时间
+     * @param timestamp 10位（秒）
+     * @return
      */
-    public static Date parseDate(LocalDate localDate, LocalTime localTime) {
-        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+    public static LocalDateTime parseLocalDateTime10(long timestamp) {
+        Instant instant = Instant.ofEpochMilli(timestamp * 1000);
         ZoneId zone = ZoneId.systemDefault();
-        Instant instant = localDateTime.atZone(zone).toInstant();
-        return Date.from(instant);
+        return LocalDateTime.ofInstant(instant, zone);
     }
 
+    /**
+     * LocalDateTime 转 Long
+     *
+     * @param localDateTime
+     * @return 13位（毫秒）
+     */
+    public static long parseLong(LocalDateTime localDateTime) {
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        return instant.toEpochMilli();
+    }
     /**
      * 格式化时间 <br/>
      * 格式 yyyy-MM-dd HH:mm:ss
@@ -255,7 +289,7 @@ public class DateTimeUtil {
      * @return
      */
     public static String format(LocalDateTime dateTime) {
-        return format(dateTime, "");
+        return format(dateTime, null);
     }
 
     /**
@@ -273,22 +307,23 @@ public class DateTimeUtil {
         return df.format(dateTime);
     }
 
-   /** public static void main(String[] args) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(df.format(zonedDateTime2Date(ZonedDateTime.now())));
-        System.out.println(df2.format(date2ZonedDateTime(new Date())));
 
-        System.out.println(getWeek4First());
-        System.out.println(format(getWeek4First(LocalDate.parse("2018-02-10")).atTime(LocalTime.MIN)));
-        System.out.println(format(getWeek4Last(LocalDate.parse("2018-02-10")).atTime(LocalTime.MAX)));
+    /** public static void main(String[] args) {
+     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+     System.out.println(df.format(zonedDateTime2Date(ZonedDateTime.now())));
+     System.out.println(df2.format(date2ZonedDateTime(new Date())));
 
-        System.out.println(format(getMonth4First().atTime(LocalTime.MIN)));
-        System.out.println(format(getMonth4Last().atTime(LocalTime.MAX)));
+     System.out.println(getWeek4First());
+     System.out.println(format(getWeek4First(LocalDate.parse("2018-02-10")).atTime(LocalTime.MIN)));
+     System.out.println(format(getWeek4Last(LocalDate.parse("2018-02-10")).atTime(LocalTime.MAX)));
 
-        System.out.println(format(getYear4First().atTime(LocalTime.MIN)));
-        System.out.println(format(getYear4Last().atTime(LocalTime.MAX)));
+     System.out.println(format(getMonth4First().atTime(LocalTime.MIN)));
+     System.out.println(format(getMonth4Last().atTime(LocalTime.MAX)));
 
-    }*/
+     System.out.println(format(getYear4First().atTime(LocalTime.MIN)));
+     System.out.println(format(getYear4Last().atTime(LocalTime.MAX)));
+
+     }*/
 
 
 }

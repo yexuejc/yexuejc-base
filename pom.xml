@@ -6,7 +6,7 @@
 
     <groupId>top.yexuejc</groupId>
     <artifactId>yexuejc-base</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 
     <name>${project.artifactId}</name>
     <url>https://github.com/yexuejc/yexuejc-base</url>
@@ -40,18 +40,18 @@
 
     <properties>
         <repos.yexuejc.url>https://nexus.yexuejc.top/repository/</repos.yexuejc.url>
-        <repos.mcworle.url>https://nexus.mcworle.com/repository/</repos.mcworle.url>
+        <repos.hm.url>https://nexus.hm3981.com/repository/</repos.hm.url>
         <repos.aliyun.url>http://maven.aliyun.com/nexus/content/groups/public</repos.aliyun.url>
         <repos.jitpack.url>https://jitpack.io</repos.jitpack.url>
-        <jjwt.version>0.7.0</jjwt.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <maven.compiler.verbose>true</maven.compiler.verbose>
         <java.version>1.8</java.version>
-        <validation-api.version>1.1.0.Final</validation-api.version>
-        <commons-codec.version>1.10</commons-codec.version>
-        <commons-io.version>2.6</commons-io.version>
-        <bcprov-jdk15on.version>1.60</bcprov-jdk15on.version>
-        <guava.version>20.0</guava.version>
-        <apache-poi.version>3.13</apache-poi.version>
+        <validation-api.version>3.0.0</validation-api.version>
+        <commons-codec.version>1.15</commons-codec.version>
+        <commons-io.version>2.8.0</commons-io.version>
+        <bcprov-jdk15on.version>1.68</bcprov-jdk15on.version>
+        <guava.version>30.1-jre</guava.version>
+        <apache-poi.version>5.0.0</apache-poi.version>
         <!-- 文件拷贝时的编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -67,9 +67,15 @@
             <version>${jjwt.version}</version>
         </dependency>
         <!-- 数据校验框架 -->
+        <!--        <dependency>-->
+        <!--            <groupId>javax.validation</groupId>-->
+        <!--            <artifactId>validation-api</artifactId>-->
+        <!--            <version>${validation-api.version}</version>-->
+        <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
             <version>${validation-api.version}</version>
         </dependency>
         <!--base64使用到的依赖-->
@@ -118,6 +124,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <source>8</source>
@@ -128,7 +135,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -139,48 +146,50 @@
                 </executions>
             </plugin>
             <!-- 使用spring boot的maven插件进行打包 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- 是否打出可执行的jar包(仅支持Linux格式) -->
-                    <executable>true</executable>
-                </configuration>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--                <version>2.4.2</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            <goal>build-info</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                <configuration>-->
+            <!--                    &lt;!&ndash; 是否打出可执行的jar包(仅支持Linux格式) &ndash;&gt;-->
+            <!--                    <executable>true</executable>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
             <!-- Javadoc -->
-            <!--<plugin>-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-javadoc-plugin</artifactId>-->
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<phase>package</phase>-->
-            <!--<goals>-->
-            <!--<goal>jar</goal>-->
-            <!--</goals>-->
-            <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>package</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>jar</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <!-- GPG -->
-            <!--<plugin> &lt;!&ndash; 进行延签 &ndash;&gt;-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-gpg-plugin</artifactId>-->
-            <!--<version>1.6</version>-->
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<phase>verify</phase>-->
-            <!--<goals>-->
-            <!--<goal>sign</goal>-->
-            <!--</goals>-->
-            <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
+            <!-- 进行延签 -->
+            <!--            <plugin> -->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-gpg-plugin</artifactId>-->
+            <!--                <version>1.6</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>verify</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>sign</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
     <repositories>
@@ -226,16 +235,16 @@
             <url>${repos.yexuejc.url}maven-snapshots/</url>
         </snapshotRepository>
 
-
-       <!-- <repository>
+        <!--
+        <repository>
             <id>releases</id>
             <name>nexus-release</name>
-            <url>${repos.mcworle.url}maven-releases/</url>
+            <url>${repos.hm.url}maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>nexus-snapshots</name>
-            <url>${repos.mcworle.url}maven-snapshots/</url>
+            <url>${repos.hm.url}maven-snapshots/</url>
         </snapshotRepository>-->
     </distributionManagement>
 
