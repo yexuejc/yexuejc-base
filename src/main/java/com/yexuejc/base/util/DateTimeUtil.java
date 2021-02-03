@@ -13,6 +13,10 @@ import java.util.Date;
  * @date: 2018/3/27 10:44
  */
 public class DateTimeUtil {
+    public static String DATE_PATTERN = "yyyy-MM-dd";
+    public static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static String DATE_TIME_MS_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
+
     private DateTimeUtil() {
     }
 
@@ -281,6 +285,45 @@ public class DateTimeUtil {
         Instant instant = localDateTime.atZone(zone).toInstant();
         return instant.toEpochMilli();
     }
+
+    /**
+     * LocalDate 转 Long
+     *
+     * @param localDate
+     * @return 13位（毫秒）最后3位为0
+     */
+    public static long parseLong(LocalDate localDate) {
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay(zone).toInstant();
+        return instant.toEpochMilli();
+    }
+
+    /**
+     * 格式化时间 <br/>
+     * 格式 yyyy-MM-dd HH:mm:ss
+     *
+     * @param dateTime
+     * @return
+     */
+    public static String format(LocalDate dateTime) {
+        return format(dateTime, null);
+    }
+
+    /**
+     * 格式化时间
+     *
+     * @param dateTime
+     * @param pattern  格式 默认:yyyy-MM-dd
+     * @return
+     */
+    public static String format(LocalDate dateTime, String pattern) {
+        if (StrUtil.isEmpty(pattern)) {
+            pattern = DATE_PATTERN;
+        }
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
+        return df.format(dateTime);
+    }
+
     /**
      * 格式化时间 <br/>
      * 格式 yyyy-MM-dd HH:mm:ss
@@ -300,8 +343,8 @@ public class DateTimeUtil {
      * @return
      */
     public static String format(LocalDateTime dateTime, String pattern) {
-        if (pattern.isEmpty()) {
-            pattern = "yyyy-MM-dd HH:mm:ss";
+        if (StrUtil.isEmpty(pattern)) {
+            pattern = DATE_TIME_PATTERN;
         }
         DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
         return df.format(dateTime);

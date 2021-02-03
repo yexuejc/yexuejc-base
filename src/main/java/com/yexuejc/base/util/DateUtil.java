@@ -21,7 +21,7 @@ public class DateUtil {
 
     public static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
-    public static DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     public static String DAY_START_TIME = "00:00:00";
     public static String DAY_END_TIME = "23:59:59";
 

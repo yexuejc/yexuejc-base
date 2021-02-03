@@ -2,7 +2,8 @@ package com.yexuejc.base.util;
 
 import java.io.*;
 import java.lang.reflect.Field;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -110,6 +111,7 @@ public class ObjUtil {
                 }
                 boolean annotationPresent = f.isAnnotationPresent(ToUeProperty.class);
                 boolean ignore = false;
+                Class<?> toType = null;
                 if (annotationPresent) {
                     ToUeProperty annotation = f.getAnnotation(ToUeProperty.class);
                     ignore = annotation.ignore();
@@ -117,17 +119,57 @@ public class ObjUtil {
                     if (StrUtil.isNotEmpty(value)) {
                         fName = value;
                     }
+                    if (!annotation.type().getClass().equals(ObjUtil.class)) {
+                        toType = annotation.type();
+                    }
                 }
                 //忽略
                 if (ignore) {
                     continue;
                 }
                 Object o = f.get(obj);
+                if (null == o && !putNull) {
+                    continue;
+                }
                 if (null == o || isPrimitive(o) || o instanceof String || o instanceof Enum) {
-                    if (null == o && !putNull) {
-                        continue;
+                    objMap.put(fName, o);
+                } else if (o instanceof Date) {
+                    if (toType != null) {
+                        Date date = (Date) o;
+                        if (toType.equals(Integer.class)) {
+                            objMap.put(fName, (int) date.getTime() / 1000);
+                        } else if (toType.equals(Long.class)) {
+                            objMap.put(fName, date.getTime());
+                        }
+                    } else {
+                        objMap.put(fName, o);
                     }
-                    objMap.put(fName, f.get(obj));
+                } else if (o instanceof LocalDate) {
+                    if (toType != null) {
+                        LocalDate date = (LocalDate) o;
+                        if (toType.equals(Integer.class)) {
+                            objMap.put(fName, (int) DateTimeUtil.parseLong(date) / 1000);
+                        } else if (toType.equals(Long.class)) {
+                            objMap.put(fName, DateTimeUtil.parseLong(date));
+                        } else if (toType.equals(String.class)) {
+                            objMap.put(fName, DateTimeUtil.format(date));
+                        }
+                    } else {
+                        objMap.put(fName, o);
+                    }
+                } else if (o instanceof LocalDateTime) {
+                    if (toType != null) {
+                        LocalDateTime date = (LocalDateTime) o;
+                        if (toType.equals(Integer.class)) {
+                            objMap.put(fName, (int) DateTimeUtil.parseLong(date) / 1000);
+                        } else if (toType.equals(Long.class)) {
+                            objMap.put(fName, DateTimeUtil.parseLong(date));
+                        } else if (toType.equals(String.class)) {
+                            objMap.put(fName, DateTimeUtil.format(date));
+                        }
+                    } else {
+                        objMap.put(fName, o);
+                    }
                 } else if (o instanceof List) {
                     List list = (List) o;
                     List bodyList = new ArrayList();
@@ -181,78 +223,11 @@ public class ObjUtil {
         boolean b = obj.getClass().isPrimitive()
                 || obj instanceof Integer || obj instanceof Character || obj instanceof Boolean
                 || obj instanceof Number || obj instanceof String || obj instanceof Double || obj instanceof Float
-                || obj instanceof Short || obj instanceof Long || obj instanceof Byte || obj instanceof Date;
+                || obj instanceof Short || obj instanceof Long || obj instanceof Byte;
         if (b) {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        B a = new B();
-        a.nameFirst = "张三";
-        a.ageInt = "5165458";
-        a.testAss = "asdasdsad";
-        a.setaM1("method1");
-        a.setbM1("b1Mthod1");
-        a.protectedStr = "protectedStr";
-        C c = new C();
-        c.ageInt = "test";
-        a.c = c;
-        a.list = new ArrayList<>();
-        a.list.add(c);
-        Map<String, Object> underlineMap = getUnderlineMap(a, false, false);
-        System.out.println(JsonUtil.obj2Json(underlineMap));
-    }
-
-    static class A implements Serializable {
-        private static final long serialVersionUID = -8462118058721865488L;
-        public String nameFirst;
-        public String ageInt;
-        private String aM1;
-        @ToUeProperty("p_str")
-        protected String protectedStr;
-
-        public String getaM1() {
-            return aM1;
-        }
-
-        public A setaM1(String aM1) {
-            this.aM1 = aM1;
-            return this;
-        }
-    }
-
-    static class B extends A {
-        private static final long serialVersionUID = -8462118058721865488L;
-        public String testAss;
-        private String bM1;
-        private C c;
-        List<C> list;
-
-        public String getbM1() {
-            return bM1;
-        }
-
-        public B setbM1(String bM1) {
-            this.bM1 = bM1;
-            return this;
-        }
-    }
-
-    static class C extends A {
-        private static final long serialVersionUID = -8462118058721865488L;
-        public String testAss;
-        private String bM1;
-
-        public String getbM1() {
-            return bM1;
-        }
-
-        public C setbM1(String bM1) {
-            this.bM1 = bM1;
-            return this;
-        }
     }
 
     /**
@@ -283,56 +258,4 @@ public class ObjUtil {
         return outer;
     }
 
-//    public static void main(String[] args) {
-////        test1();
-////        test2();
-//
-//    }
-//
-//    private static void test2() {
-//        B t = new B();
-//        t.sex = "男";
-//        t.age = 18;
-//        A test = new A();
-//        test.name = "张三";
-//        t.test = test;
-//        B b = depthClone(t);
-//        System.out.println(JsonUtil.obj2Json(b));
-//    }
-//
-//    static class A implements Serializable {
-//        private static final long serialVersionUID = -8462118058721865488L;
-//        public String name;
-//    }
-//
-//    static class B implements Serializable {
-//        private static final long serialVersionUID = 3297717505428005316L;
-//        public int age;
-//        public String sex;
-//        public A test;
-//    }
-//
-//    static class C implements Serializable {
-//        private static final long serialVersionUID = 3297717505428005316L;
-//        public int age;
-//        public String sex;
-//        public A test;
-//    }
-//
-//    private static void test1() {
-//        ApiVO apiVO = new ApiVO(ApiVO.STATUS.S);
-//        apiVO.setMsg("asdsadsad");
-//        apiVO.setObject1("sadsadsad");
-//
-//        Resps<String> obj = new Resps<>();
-//        obj.setSucc("安达圣斗士", "ok");
-//        System.out.println(obj);
-//        apiVO.setObject2(obj);
-//        ApiVO apiVO1 = depthClone(apiVO);
-//        System.out.println(apiVO == apiVO1);
-//        System.out.println(JsonUtil.obj2Json(apiVO1));
-//        System.out.println(JsonUtil.obj2Json(apiVO1.getObject1(String.class)));
-//        System.out.println(JsonUtil.obj2Json(apiVO1.getObject2(Resps.class)));
-//        System.out.println(apiVO1.getObject2(Resps.class) == obj);
-//    }
 }

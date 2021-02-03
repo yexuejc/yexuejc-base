@@ -1,9 +1,9 @@
 package com.yexuejc.base.pojo;
 
 import com.yexuejc.base.util.JsonUtil;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 /**
  * 分页 VO
