@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class DateTimeUtil {
     public static String DATE_PATTERN = "yyyy-MM-dd";
+    public static String TIME_PATTERN = "HH:mm:ss";
     public static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static String DATE_TIME_MS_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
 
