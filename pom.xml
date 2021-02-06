@@ -6,7 +6,7 @@
 
     <groupId>top.yexuejc</groupId>
     <artifactId>yexuejc-base</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
 
     <name>${project.artifactId}</name>
     <url>https://github.com/yexuejc/yexuejc-base</url>
