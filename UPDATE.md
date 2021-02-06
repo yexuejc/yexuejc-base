@@ -1,6 +1,19 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.4.3
+**time：2021-2-6 11:42:49** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. DateTimeUtil类增加时间格式
+#
+#### version ：1.4.2
+**time：2021-2-3 11:40:11** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. 优化时间转换格式
+>2. 增加注解 ToUeProperty 转换时间为时间戳的功能
+#
 #### version ：1.4.1
 **time：2021-1-31 12:59:24** <br/>
 **branch：** master    <br/>
