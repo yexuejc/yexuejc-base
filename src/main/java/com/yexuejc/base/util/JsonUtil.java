@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 /**
@@ -46,6 +47,8 @@ public class JsonUtil {
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        //设置一下时区，可以和程序同步避免时区问题
+        objectMapper.setTimeZone(TimeZone.getDefault());
         objectMapper.setDateFormat(DateUtil.DATE_TIME_FORMAT);
     }
 
@@ -56,6 +59,15 @@ public class JsonUtil {
     }
 
     /**
+     * 这个设置不能改变JsonUtil自带的objectMapper设置，只能修改传入objMapper的设置
+     * @param objMapper
+     */
+    public static void initSnakeCase(ObjectMapper objMapper) {
+        //驼峰下划线互转
+        objMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+    }
+
+    /**
      * 每调用一次生成一个全新的ObjectMapper供特殊场景使用，与通用ObjectMapper没有关系
      *
      * @return
@@ -63,6 +75,15 @@ public class JsonUtil {
     public static ObjectMapper genObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonUtil.initDefaultObjectMapper(objectMapper);
+        return objectMapper;
+    }
+
+    /**
+     * 返回 ObjectMapper对象，供外部设置特定参数
+     *
+     * @return
+     */
+    public static ObjectMapper getObjectMapper() {
         return objectMapper;
     }
 
@@ -106,7 +127,7 @@ public class JsonUtil {
             log.warning("json to Object JsonMappingException.\n" + e.getMessage());
         } catch (IOException e) {
             log.warning("json to Object IOException.\n" + e.getMessage());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -1,6 +1,12 @@
 yexuejc-base 更新记录
 ------------------
 
+#### version ：1.4.4
+**time：2021-4-24 00:41:31** <br/>
+**branch：** master    <br/>
+**update：**     <br/>
+>1. JsonUtil类修复格式化出现的时区差：现使用TimeZone.getDefault()时区
+#
 #### version ：1.4.3
 **time：2021-2-6 11:42:49** <br/>
 **branch：** master    <br/>
